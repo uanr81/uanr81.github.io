@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Когда что-то идет не так с самим FontForge</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Когда что-то идет не так с самим FontForge</h1>
+          <p>FontForge разработан на GitHub.
+Команда FontForge использует GitHub Issues для обсуждения проблем, ошибок и идей по
+улучшению, а затем кто-то разрабатывает решение и предлагает его как <em>Pull Request</em>.</p>
+<p>Чтобы узнать больше о GitHub, посетить <a href="https://help.github.com/articles/good-resources-for-learning-git-and-github/">Хорошие ресурсы для изучения Git и GitHub</a>.</p>
+<h2 id="плата-за-поддержку">Плата за поддержку</h2>
+<p>Это может быть неожиданностью, но платить за поддержку FontForge возможно и даже рекомендуется,
+если что-то пойдет не так.</p>
+<p>В то время как другие редакторы шрифтов с аналогичными комплексными функциями стоят сотни долларов США,
+если каждый заплатит аналогичную сумму разработчикам FontForge за исправление самых неприятных ошибок,
+FontForge будет становиться все лучше и лучше.</p>
+<p><a href="https://freedomsponsors.org/project/220/">СвободыеСпонсоры</a> предлагается прозрачная система оплаты
+разработчикам FontForge за своевременное устранение волнующих проблем.</p>
+<ol>
+  <li>Создать задачу FontForge, описывающую, что требуется изменить (смотреть ниже).  Скопировать
+URL-адрес проблемы в буфер обмена.</li>
+  <li>Посетить FreedomSponsors и спонсировать новый выпуск, используя URL-адрес, который скопирован ранее.</li>
+  <li>Вернуться к проблеме и добавить комментарий со ссылкой на страницу проблемы FreedomSponsors с
+личным сообщением о том, что предлагается платная награда за закрытие этой проблемы.</li>
+</ol>
+<h2 id="сообщить-об-ошибке">Сообщить об ошибке</h2>
+<ol>
+  <li>Посетить <a href="https://github.com/fontforge/fontforge/issues">FontForge GitHub Issue Tracker</a> и войдите в GitHub (после создания учетной записи, если у вас ее еще нет).</li>
+  <li>В поле поиска the Issues попробовать найти похожие проблемы, чтобы узнать, сообщалось ли уже
+о проблеме, с которой столкновение. 
+Если это так, и проблема связана с ней, но не совсем совпадает, прокомментировать проблему, высказав свой собственный взгляд на нее.</li>
+  <li>Если об этом еще не сообщалось, открыть новую проблему.
+Нажать зеленую кнопку “New Issue”, а затем описать вопрос, что сделано, чтобы вызвать сбой, или идею по улучшению.</li>
+</ol>
+<p>Включить соответствующие детали, такие как:</p>
+<ul>
+  <li>операционная система и версия,</li>
+  <li>версия FontForge и откуда взята,</li>
+  <li><strong>что происходит, шаг за шагом, чтобы создать проблему</strong></li>
+  <li><strong>какие сообщения об ошибках видны,</strong> и</li>
+  <li><strong>какие ожидания, что происходит</strong>.</li>
+</ul>
+<p>Перетащить скриншоты или другие изображения прямо на страницу задачи, чтобы включить их.</p>
+<p>Самый простой способ сообщить о проблемах — записать видео-скринкаст, в котором закадровым
+голосом объяснть, что интересует, по мере их возникновения, а затем загрузить на YouTube и
+включить ссылку на видео.</p>
+<p>Чтобы воспроизвести проблему, полезно поделиться с сообществом разработчиков файлами,
+с которыми работа.  Если можно создать небольшой файл, содержащий только то, что необходимо
+для воспроизведения проблемы, создать репозиторий Fontforge и добавить эти файлы в
+<a href="https://github.com/fontforge/fontforge/tree/master/tests/fonts">/tests/fonts</a> и отправить
+запрос на вытягивание. 
+Также можно временно разместить файлы на веб-сайте или в файлообменной службе (например,
+MegaUpload, DropBox, Google Drive и так далее).
+Наконец, если нет желания публиковать файлы, указать адрес электронной почты, по которому
+разработчик FontForge сможет связаться и получить личную копию файла.</p>
+<p>Пожалуйста, не закрывать проблемы других людей — попросить их закрыть проблему, если она
+закрыта к их удовлетворению.</p>
+<h2 id="как-сообщить-о-сбое">Как сообщить о сбое</h2>
+<p>Процесс сообщения о сбое или других ошибках такой же, как и для новых функций или вопросов.
+Отправка хорошего отчета о сбое разработчикам FontForge действительно помогает им улучшить
+стабильность программы для всех!
+Не стесняться сообщать о таких проблемах, потому что сбой, о котором не сообщается, — это сбой,
+который вряд ли удастся исправить.</p>
+<p>Если обнаружить сбой FontForge во время использования, создать проблему, как указано выше.
+Если есть определенный файл шрифта (SFD, UFO, OTF, TTF и так далее), что вызывает сбой,
+можно либо загрузить его в новый репозиторий GitHub самостоятельно (или в Dropbox, либо
+на другую платформу) и добавить ссылку, либо опубликовать свое электронное письмо. и
+попросить разработчика отправить электронное письмо, чтобы получить копию конфиденциально.</p>
+<p>По описанию разработчики FontForge попытаются воспроизвести сбой.  Если они смогут это сделать,
+то смогут определить, где в коде идет ошибка, и исправить ситуацию.</p>
+<p>После объединения запроса на включение, устраняющего проблему, потребуется получить новую версию.
+Сделать одно из следующих действий:</p>
+<ul>
+  <li>перекомпилировать из последнего исходного кода GitHub (смотреть <a href="Installing_Fontforge.html">Инсталяция Fontforge</a>),</li>
+  <li>проверить, доступна ли ежедневная сборка (часто это возможно для <a href="http://fontforge.github.io/en-US/downloads/mac/">Mac OS X</a>), или</li>
+  <li>дождаться следующего выпуска (часто в течение нескольких недель).</li>
+</ul>
+<h3 id="лучшие-отчеты-о-сбоях">Лучшие отчеты о сбоях</h3>
+<p>Чтобы помочь разработчикам выяснить, что происходит не так, и <strong>really</strong> понять, как это
+исправить, можно проделать еще немного работы и создать файл <em>backtrace</em>.
+Обратная трассировка включает в себя список того, какие программные функции вызывали какие
+другие, чтобы добраться до места, где программа перестала работать.
+Обратная трассировка наиболее полезна, если она также содержит номера строк функций.</p>
+<p>Чтобы выполнить обратную трассировку, может потребоваться установка из исходного кода
+с включенным <em>debugging information</em>.  Использовать команды <code class="language-plaintext highlighter-rouge">type</code> и <code class="language-plaintext highlighter-rouge">nm</code>, чтобы найти
+путь и статус двоичного файла Fontforge.  Пример:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">type</span> <span class="nt">-all</span> fontforge<span class="p">;</span>
+fontforge is /usr/bin/fontforge
+<span class="nv">$ </span>nm /usr/bin/fontforge<span class="p">;</span>
+nm: /usr/bin/fontforge: no symbols
+</code></pre></div></div>
+<p>В этом примере видно <code class="language-plaintext highlighter-rouge">no symbols</code>, поэтому необходимо обновить установку, включением
+в нее отладочную информацию.</p>
+<h4 id="установить-отладочную-информацию-в-fedora">Установить отладочную информацию в Fedora</h4>
+<p>Fedora предлагает в стандартном репозитории команду для простой установки отладочной
+информации для FontForge.  (Обратить внимание, что для загрузки могут потребоваться сотни
+мегабайт, если еще не установлено множество зависимых пакетов debuginfo.)  Чтобы установить
+его, запустить:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>debuginfo-install fontforge<span class="p">;</span>
+</code></pre></div></div>
+<!--TODO: Объяснить, как включить отладочную информацию из скомпилированных источников.-->
+<p>Обратная трассировка создается с помощью отладчика проекта GNU, <code class="language-plaintext highlighter-rouge">gdb</code>.
+Можно либо подключить gdb к уже работающему FontForge, либо запустить FontForge внутри
+самого сеанса gdb.
+Вот пример последнего:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gdb fontforge;
+GNU gdb (GDB) Fedora (7.3.50.20110722-16.fc16)
+Copyright (C) 2011 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+&lt;http://www.gnu.org/software/gdb/bugs/&gt;...
+Reading symbols from /usr/local/bin/fontforge...done.
+</code></pre></div></div>
+<p>Затем, как только запуск отладчика с помощью команды запуска, на экране откроется FontForge:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) run
+Starting program: /usr/local/bin/fontforge 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+Copyright (c) 2000-2012 by George Williams.
+ Executable based on sources from 14:57 GMT 31-Jul-2012-ML-TtfDb-D.
+ Library based on sources from 14:57 GMT 31-Jul-2012.
+</code></pre></div></div>
+<p>Отсюда можно использовать FontForge обычным способом, но с тем преимуществом,
+что можно эффективно фиксировать и сообщать о любых проблемах, которые могут
+возникнуть в FontForge.</p>
+<p>Одно из основных отличий, которое дает запуск FontForge внутри gdb,
+заключается в том, как становится очевидным сбой.  Без GDB при сбое FontForge
+он исчезнет с экрана.  Однако когда запускать FontForge внутри gdb, сбой FontForge
+останется открытым вместе со своими окнами и пользовательским интерфейсом.</p>
+<p>Если обнаружить, что интерфейс не отвечает, вернуться к терминалу, на котором
+запущен gdb, и можно увидеть в тексте что-то вроде <code class="language-plaintext highlighter-rouge">SIGSEGV</code>, за которым следует
+приглашение <code class="language-plaintext highlighter-rouge">(gdb)</code>.  Если видно приглашение <code class="language-plaintext highlighter-rouge">(gdb)</code>, значит, FontForge больше
+не выполняется.</p>
+<p>Теперь можно (наконец-то!) использовать команду <code class="language-plaintext highlighter-rouge">bt</code> для получения обратной
+трассировки, а затем использовать команду gdb <code class="language-plaintext highlighter-rouge">quit</code> для выхода из GDB и
+закрытия аварийного FontForge.  Вот пример:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Program received signal SIGSEGV, Segmentation fault. 
+0x00007ffff74a7c01 in ?? () from /lib/x86_64-linux-gnu/libc.so.
+(gdb) bt
+#0  0x00007ffff74a7c01 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff6389a80 in copy (str=0x900000008) at memory.c:82
+#2  0x00007ffff7a4aeb5 in KCD_AutoKernAClass (kcd=kcd@entry=0xe80c40, index=2, is_first=is_first@entry=1)
+    at kernclass.c:236
+#3  0x00007ffff7a51405 in KCD_FinishEdit (g=0xeb0fe0, r=1, c=, wasnew=1) at kernclass.c:2020
+#4  0x00007ffff5effe2d in GME_SetValue (gme=gme@entry=0xeb0fe0, g=0xe94760) at gmatrixedit.c:988
+#5  0x00007ffff5f00554 in GME_FinishEdit (gme=0xeb0fe0) at gmatrixedit.c:997
+#6  0x00007ffff5f01c1a in GMatrixEditGet (g=g@entry=0xeb0fe0, rows=rows@entry=0x7fffffffcf78)
+    at gmatrixedit.c:2214
+#7  0x00007ffff7a4ea3c in KCD_Expose (event=0x7fffffffd1e0, pixmap=0x83ae00, kcd=0xe80c40)
+    at kernclass.c:1446
+#8  kcd_e_h (gw=0x83ae00, event=0x7fffffffd1e0) at kernclass.c:1762
+#9  0x00007ffff5eabe8f in _GWidget_Container_eh (gw=gw@entry=0xe7f040, event=event@entry=0x7fffffffd1e0)
+    at gcontainer.c:269
+#10 0x00007ffff5eac385 in _GWidget_TopLevel_eh (event=0x7fffffffd1e0, gw=0xe7f040) at gcontainer.c:734
+#11 _GWidget_TopLevel_eh (gw=0xe7f040, event=0x7fffffffd1e0) at gcontainer.c:606
+#12 0x00007ffff5ef86ce in GXDrawRequestExpose (gw=0xe7f040, rect=0xef72b0, doclear=)
+    at gxdraw.c:2687
+#13 0x00007ffff5eea075 in gtextfield_focus (g=0xef72a0, event=0x7fffffffd2e0) at gtextfield.c:1888
+#14 0x00007ffff5eaa857 in _GWidget_IndicateFocusGadget (g=0xe94760, mf=mf@entry=mf_normal)
+    at gcontainer.c:143
+#15 0x00007ffff5eaac97 in GWidgetIndicateFocusGadget (g=) at gcontainer.c:155
+#16 0x00007ffff5f02b1e in GME_StrSmallEdit (event=0x7fffffffd670, str=0xe10e60 "A", gme=0xeb0fe0)
+    at gmatrixedit.c:890
+#17 GMatrixEdit_StartSubGadgets (gme=gme@entry=0xeb0fe0, r=1, c=c@entry=0, event=event@entry=0x7fffffffd670)
+    at gmatrixedit.c:1472
+#18 0x00007ffff5f03d69 in GMatrixEdit_MouseEvent (event=0x7fffffffd670, gme=0xeb0fe0) at gmatrixedit.c:1499
+#19 matrixeditsub_e_h (gw=, event=0x7fffffffd670) at gmatrixedit.c:1735
+#20 0x00007ffff5eabd98 in _GWidget_Container_eh (gw=0xeeb2e0, event=0x7fffffffd670) at gcontainer.c:393
+#21 0x00007ffff5ef6555 in dispatchEvent (gdisp=gdisp@entry=0x769a50, event=event@entry=0x7fffffffd9b0)
+    at gxdraw.c:3475
+#22 0x00007ffff5ef7d1e in GXDrawEventLoop (gd=0x769a50) at gxdraw.c:3574
+#23 0x00007ffff7ad353a in fontforge_main (argc=, argv=) at startui.c:1196
+#24 0x00007ffff736676d in __libc_start_main () from /lib/x86_64-linux-gnu/libc.so.6
+#25 0x00000000004006e1 in _start ()
+(gdb) quit
+A debugging session is active.
+       Inferior 1 [process 19196] will be killed.
+Quit anyway? (y or n) y
+</code></pre></div></div>
+<p>В этом примере разработчик может увидеть, что FontForge произошел сбой внутри функции <code class="language-plaintext highlighter-rouge">copy()</code>.
+Функция <code class="language-plaintext highlighter-rouge">copy()</code> сама была вызвана из функции <code class="language-plaintext highlighter-rouge">KCD_AutoKernAClass</code>.  Обратная трассировка сообщит
+разработчику программного обеспечения, в каких именно строках были сделаны эти вызовы, а также
+воспользуется подсказкой о том, что параметр, переданный в <code class="language-plaintext highlighter-rouge">copy()</code>, был недействителен (выходит
+за пределы), чтобы выяснить, что код делает неправильно.</p>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

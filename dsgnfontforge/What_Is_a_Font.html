@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Что такое шрифт?</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Что такое шрифт?</h1>
+          <p>Что отличает шрифты от рукописного текста, каллиграфии, надписей и логотипов?</p>
+<p>Самая большая проблема, которая отличает шрифтовой дизайн, — это необходимость того, чтобы
+каждый глиф в шрифте работал с каждым другим глифом.  Часто означает, что дизайн и расстояние
+между каждой частью шрифта представляют собой серию осторожных компромиссов.  Компромиссы
+означают, что можно лучше всего думать о дизайне шрифтов как о создании замечательной коллекции
+букв, а не как о коллекции замечательных букв.  Другими словами, думать о группе и о том,
+как она будет действовать вместе, и ставить это выше любого вопроса о том, что замечательного
+в одном письме.</p>
+<p>Эта необходимость расставлять приоритеты в отношении системы, а не какой-либо отдельной части,
+также приводит к необходимости анализировать наш процесс проектирования на уровне системы.
+Характеристики, охватывающие буквы, становятся тем, на чем задача сосредоточиться, особенно
+в начале процесса проектирования.</p>
+<p>Другая странность шрифтового дизайна заключается в том, что формы, которые проектируются,
+в значительной степени уже устоялись.  Задача как шрифтовиков — не столько создать
+совершенно новую форму, сколько создать новую версию существующей формы.  Это может сбить
+с толку дизайнеров новых шрифтов.  Найти нужную сумму изменений, чтобы возбудить, но не
+оттолкнуть читателя, — непростая задача.  Часто дизайнеры застревают в специфическом
+мышлении.  Этой ошибки можно легко избежать, если с самого начала понимать, что наиболее
+значимыми в шрифте являются те его части, которые больше всего повторяются.  Дизайн шрифта —
+это не только разработка характеристик, применимых к общим формам, которые известны всем,
+но и к формам, которые встречаются чаще всего.</p>
+<p>Также полезно осознавать, что эти характеристики не только помогают создать голос или
+атмосферу шрифта, но также определить, для чего шрифт будет или не будет полезен, а
+иногда и для определения технологических контекстов, для которых шрифт подходит.</p>
+<p>Подобный подход к дизайну шрифта может показаться пугающим или чрезмерно абстрактным.
+Однако привыкание к этим идеям — ключ к более быстрому, эффективному и удовлетворительному
+процессу проектирования шрифтов.</p>
+<p>Начать с определения основных системных характеристик шрифтового дизайна.</p>
+<h3 id="конструкция">Конструкция</h3>
+<p><img src="images/Construction2.png" alt="" /></p>
+<p>Конструкция относится к структуре основных штрихов, образующих определенный глиф.
+Возможно, представить себе скелет глифа.  Какой тип конструкции использовать, пожалуй,
+один из самых важных вопросов, над которым следует подумать, поскольку конструкция
+влияет на многие оставшиеся варианты, особенно если дизайн покажется читателям чем-то
+знакомым.  В приведенном выше примере белые линии внутри букв обозначают
+приблизительную конструкцию, подсказываемую формой самих букв.</p>
+<p>Однако способ окончания штрихов (‘terminals’ ) и ‘serifs’ (смотреть ниже), как правило,
+не являются частью того, что подразумевается под ‘construction.’.  Конструкция представляет
+собой скелет глифа, в то время как остальные — ширина, вес, терминалы —
+являются частями flesh.</p>
+<p><img src="images/AAA.png" alt="" /></p>
+<h3 id="пропорция-x-height-к-cap-height">Пропорция X-height к Cap-height</h3>
+<p><img src="images/Prop.png" alt="" /></p>
+<p>Буквы слева взяты из [Playfair Display], что имеет большую высоту по оси X относительно
+cap-height.  Буквы справа взяты из <a href="http://www.georgduffner.at/ebgaramond/">EB Garamond</a>, который имеет меньшую x-height.  В
+приведенном выше примере размер H был скорректирован так, чтобы они совпадали.</p>
+<h3 id="ascender-высота">Ascender Высота</h3>
+<p><img src="images/Ascender%20height.png" alt="" /></p>
+<p>В приведенном выше примере x-heights сопоставлены, чтобы проиллюстрировать относительную
+разницу в высоте ascender.</p>
+<p>Надстрочные элементы обычно хотя бы немного превышают cap-height, особенно в текстовом
+дизайне.  Однако в некоторых случаях они могут соответствовать или даже быть ниже, чем
+cap-height.  Более длинные восходящие элементы могут добавить элегантности внешнему виду
+шрифта.  Они часто используют x-height меньшего размера.</p>
+<h3 id="descender-глубина">Descender глубина</h3>
+<p><img src="images/Descender%20depth.png" alt="" /></p>
+<p>Как и восходящие элементы, длинные descenders могут выглядеть элегантно.</p>
+<p>В совокупности длинные ascenders и descenders могут стать трудными для управления.
+Если шрифт будет использоваться с небольшой высотой строк, удлинение означает,
+что буквы могут сталкиваться в строках текста.</p>
+<h2 id="ширина">Ширина</h2>
+<p><img src="images/width.png" alt="" /></p>
+<p>Ширина шрифтового дизайна изменит не только его восприятие, но и то, для чего он
+полезен.  Пример справа взят из текста face.  Пример слева — дизайн отображения,
+призванный привлекать внимание.  Также возможны буквы, более узкие, чем в примере с
+текстовым шрифтом, и их можно использовать для экономии места или для размещения
+большего количества текста в меньшем пространстве.</p>
+<h3 id="регулярность-ширины-против-изменчивости">Регулярность ширины против изменчивости</h3>
+<p>Буквы в верхнем ряду этого примера имеют большее разнообразие ширины, чем буквы в
+нижнем ряду.</p>
+<p><img src="images/Width%20regularity.png" alt="" /></p>
+<h3 id="weight">Weight</h3>
+<p><img src="images/Weight.png" alt="" /></p>
+<h3 id="slant">Slant</h3>
+<p><img src="images/Slant.png" alt="" /></p>
+<h3 id="contrast">Contrast</h3>
+<p>Контрастность означает, насколько сильно варьируется ширина штриха внутри глифа.
+Обратить внимание на два глифа ‘O’ ниже, что тот, что слева, имеет гораздо большую
+вариативность толщины линии между верхней и боковой частью глифа.  Оба глифа имеют
+некоторый контраст, но у левого он гораздо больше, чем у правого.</p>
+<p><img src="images/Contrast.png" alt="" /></p>
+<p>Шрифт с одинаковым весом (шириной штриха) в форме букв или без видимого контраста резко
+отличается от контрастного шрифта.  Как и выбор между засечками и без засечек, контраст —
+это ранний выбор шрифтового дизайна.  Интересно отметить, что в дизайне с засечками ‘slab’
+обычно используется одинаковая ширина штриха в буквах, и что дизайн плиточных засечек
+касается не только засечек, как это звучит!  Необходимо помнить, что действуют правила
+восприятия.  (смотреть <a href="Trusting_Your_Eyes.html">“Доверять своим глазам”</a>) —
+Контраст – это то, как вес выглядит, а не то, каким он будет.</p>
+<h3 id="угол-контраста">Угол контраста</h3>
+<p>На изображении ниже показано, что тонкие части форм строчной буквы ‘o’ различаются.
+В глифе слева тонкие точки лежат на идеально вертикальной оси.  В глифе справа ось
+диагональная.</p>
+<p><img src="images/Angle%20of%20contrast.png" alt="" /></p>
+<h3 id="weight-распределение">Weight распределение</h3>
+<p>Если в шрифте контрастность очень мала или вообще отсутствует, не нужно об этом думать.
+Однако большинство шрифтов имеют хотя бы некоторую степень контраста.  В этих случаях
+широкий выбор вариантов распределения веса (weight) шрифта.</p>
+<h4 id="vertical">Vertical</h4>
+<p><img src="images/verical1.png" alt="" /></p>
+<p>Вертикальное распределение веса очень распространено. 9 и 8 выше являются особенно
+ярким примером.</p>
+<h4 id="horizontal">Horizontal</h4>
+<p><img src="images/horizontal%20weight.png" alt="" /></p>
+<p>Горизонтальное распределение веса встречается гораздо реже, но, тем не менее,
+встречается во многих шрифтах.</p>
+<h4 id="bottom-heavy">Bottom-heavy</h4>
+<p><img src="images/2bottomheavy.png" alt="" /></p>
+<h4 id="top-heavy">Top-heavy</h4>
+<p><img src="images/2topheavy%20metal.png" alt="" /></p>
+<h4 id="irregular">Irregular</h4>
+<p><img src="images/Irregular%20weight.png" alt="" /></p>
+<h3 id="stems">Stems</h3>
+<p><img src="images/8stems.png" alt="" /></p>
+<p>Легко предположить, что стебли (stems) просто будут прямыми и что это не является серьезной
+проблемой, но вес и форма стеблей — это вещи, которые можно и требуется осознать.</p>
+<h3 id="joins">Joins</h3>
+<p><img src="images/7joins.png" alt="" /></p>
+<h3 id="bowls">Bowls</h3>
+<p>Обратить внимание, что на рисунках ниже чаши — это обводка, а не черные внутренние формы.
+Внутренние штрихи обозначаются как “counters”.  При разработке шрифта часто меняется работа
+не из-за формы или ширины штриха, а из-за формы и размера счетчика (counter).</p>
+<p><img src="images/2bowls.png" alt="" /></p>
+<h3 id="terminals">Terminals</h3>
+<p>Терминалы — это конечные формы штрихов.  Они не такие, как засечки.  Часто перпендикулярны
+углу штриха на его конце или срезаны по горизонтали или вертикали.  Также могут отражать форму
+пера или другого инструмента для нанесения отметок, который напоминает форма букв.</p>
+<p><img src="images/terminals%20f.png" alt="" /></p>
+<h3 id="speed">Speed</h3>
+<p><img src="images/6speed_1.png" alt="" /></p>
+<p>Кажется, что ‘n’ слева пишется намного быстрее, чем справа.  Более подробно скорость
+обсуждается в главе [on italics].</p>
+<h3 id="regularity">Regularity</h3>
+<p><img src="images/6regularity.png" alt="" /></p>
+<p>Следующие характеристики присутствуют не во всех типовых проектах, однако они являются
+переменными, которые могут быть частью дизайна.  Если это так, стоит задуматься о том,
+в какой степени они будут играть роль переменной.</p>
+<h3 id="flourish">Flourish</h3>
+<p><img src="images/5flourish.png" alt="" /></p>
+<p>Обратитm внимание, что в верхнем шрифте flourish чаще встречается в заглавной букве,
+а второй, flourish, в большей степени в нижнем регистре.</p>
+<h3 id="serif---быть-или-не-быть">Serif - Быть или не быть</h3>
+<p>Serifs — один из наиболее различных аспектов гарнитуры, и часто первая классификация
+шрифта проводится между serif и шрифтом без засечек.</p>
+<p>Выбор влияет на то, как будут выглядеть конечные терминалы.  Засечки могут быть
+двусторонними и односторонними.  Могут быть перпендикулярны штриху или иметь собственное
+направление (например, быть всегда горизонтальными или вертикальными).  Засечки могут быть
+со скобками или без них.  Любой дизайн с засечками представляет собой смесь всего
+вышеперечисленного, последовательно применяемого к дизайну шрифта с некоторыми
+отклонениями для отдельных букв, особенно ‘S’, ‘C’ и ‘Z’ (например, шрифт с горизонтальными
+засечками для всех букв часто будет иметь s, c и z) имеют вертикальные засечки.</p>
+<p>Существует городская легенда, утверждающая, что типы с засечками легче читать, чем шрифты без
+засечек — это <a href="http://asserttrue.blogspot.se/2013/01/the-serif-readability-myth.html">единственный миф</a>, для дальнейшего уведомления.</p>
+<p>Форма засечек связана с формой терминалов.</p>
+<h4 id="brackets">Brackets</h4>
+<p>Угловые части засечки, где соединение с основным штрихом, называются ‘brackets’.  В
+конкретном дизайне они могут придавать засечкам мягкость (например, <a href="http://practicaltypography.com/times-new-roman.html">Times New Roman</a>)
+или могут отсутствовать какие-либо скобки.  В некоторых конструкциях также используются
+кронштейны только с одной стороны или с разными пропорциями с двух сторон.</p>
+<p>Это относительно сильный параметр, который придает типу — элегантность (гладкие или
+большие скобки <a href="http://practicaltypography.com/times-new-roman.html">Times New Roman</a>) или хрустящие корочки (отсутствуют скобки <a href="http://files.korkork.com/index.php?/fonts/arvo/">Arvo</a>).</p>
+<h4 id="slab-serifs">Slab-serifs</h4>
+<p>slabs, также называемый механистическим или типом Egyptian, представляет собой толстые
+блочные засечки.  Плоские засечки не используют brackets.  Вообще говоря, шрифтовой дизайн
+с такими засечками имеет меньший контраст в глифах — <a href="http://www.myfonts.com/fonts/mti/rockwell/">Rockwell</a>, <a href="http://typedia.com/explore/typeface/courier/">Courier</a> или
+[American typewriter] отразить это.</p>
+<p>Можно с уверенностью предположить, что пластинчатые засечки использовались для добавления
+орнамента или ритма к неконтрастному дизайну.  Но это не абсолютное правило.</p>
+<h4 id="serif-terminals">Serif Terminals</h4>
+<p>Как и в случае с буквенными терминалами, форма конца serifs сама по себе придает типу —
+ощущение мягкости или массивности.  Концы с засечками могут быть мягкими и
+закругленными (<a href="http://typedia.com/explore/typeface/courier/">Courier</a>) или тупыми и угловатыми (<a href="http://www.myfonts.com/fonts/mti/rockwell/">Rockwell</a>).</p>
+<h3 id="decoration">Decoration</h3>
+<p>Сами формы букв могут быть украшены внутри или дополнены лишними декоративными формами - или
+и то, и другое!</p>
+<p><img src="images/decoration-1.jpg" alt="Крупный план внутреннего decoration в рукописном письме" /></p>
+<p><img src="images/decoration-2.jpg" alt="Богато украшенный курсив M" /></p>
+<p><img src="images/decoration-3.jpg" alt="Типографика на дереве, зеркально отраженная по горизонтали, как если бы она использовалась на бумаге." /></p>
+<h3 id="dimension">Dimension</h3>
+<p><img src="images/3dimention.png" alt="Сторона чтения truck 'CASEY &amp; HAYES, MOVERS BOSTON'" /></p>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

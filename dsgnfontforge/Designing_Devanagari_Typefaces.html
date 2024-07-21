@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Разработка шрифтов деванагари</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Разработка шрифтов деванагари</h1>
+          <p><em>Благодарность Adam Twardoch, Erin McLaughlin, Neelakash Kshetrimayum, Dan Reynolds, Pooja Saxena, Dr Girish Dalvi за вклад в многие идеи на этой странице.</em></p>
+<p>Создать новое и оригинальное <a href="http://en.wikipedia.org/wiki/Devanagari">Деванагари</a>
+Шрифт следует процессу, очень похожему на процесс создания новой и оригинальной латыни.
+Уникальное преимущество <em>libre</em> в шрифтах libre заключается в том, что можно изменять
+и повторно использовать их для новых целей, о которых их первоначальные создатели
+никогда не думали — например, разработать деванагари и адаптировать существующий
+латинский шрифт для него.</p>
+<h2 id="деванагари-глифы">Деванагари Глифы</h2>
+<p>Шрифты деванагари содержат эти разные типы глифов:</p>
+<ul>
+  <li>consonants (36)</li>
+  <li>independent vowels (28)</li>
+  <li>vowel maatras</li>
+  <li>word space(s)</li>
+  <li>Devanagari numerals (10)</li>
+  <li>Латинские цифры (новые или, если они уже присутствуют, то скорректированные для работы в чистом тексте деванагари)</li>
+  <li>nukta composites</li>
+  <li>half-forms</li>
+  <li>conjuncts (unique ligature glyphs)</li>
+  <li>“I” гласные маатры разной длины</li>
+  <li>Пунктуация, знаки и символы деванагари</li>
+  <li>Латинская пунктуация, знаки и символы (новые или измененные, если они уже присутствуют)</li>
+  <li>Latin letters</li>
+</ul>
+<p>Проконсультироваться с
+<a href="http://www.unicode.org/versions/Unicode8.0.0/ch12.pdf">Юникод, глава 12 об индийских алфавитах</a>
+(<a href="http://www.unicode.org/charts/PDF/U0900.pdf">Страница Деванагари в Юникоде</a>), так же
+хорошо как
+<a href="http://www.microsoft.com/typography/OpenTypeDev/devanagari/intro.htm">Страница разработки шрифтов Microsoft Devanagari OpenType</a>
+чтобы узнать больше об этих глифах и о том, как работает механизм формирования
+индийских символов.</p>
+<p>Полезно заняться каллиграфией или внимательно изучить руководства по написанию, чтобы
+узнать, как работает письмо, и понять, какие буквы должны быть похожи на другие буквы
+по структуре.  <a href="https://groups.google.com/d/msg/googlefonts-discuss/XRYMYHZpUVc/_mLQWbr8rp8J">Эти две страницы из «Руководства по каллиграфии деванагари» Акшараи.</a> может
+использоваться в качестве эталона для определения угла наклона пера и пропорций букв.</p>
+<h2 id="что-делать-в-первую-очередь">Что делать в первую очередь</h2>
+<p>При разработке шрифта деванагари и латиницы важно начать с рисования латиницы
+рядом с деванагари.  На самых ранних этапах разрабатываются глифы “key”, чтобы
+определить индивидуальность шрифта с помощью основных форм и интервалов (которые
+на латыни могут быть ‘adhesion’ или ‘videospan’).  Разработать самые низкие и
+самые высокие глифы “height extremes” на ранних стадиях процесса.</p>
+<p>Понадобится много знаков гласных, чтобы начать тестирование текстуры и масштаба.</p>
+<p>Профессор типографии в ИИТ Бомбея доктор Гириш Далви в своей докторской диссертации
+написал:</p>
+<blockquote>
+  <p>По результатам этого исследования сделать вывод, что десять букв
+अ इ ए ख त भ द ध थ ष может почти передать все формальные свойства остальных
+букв деванагари.  Внутри этих букв буквы अ इ ख भ द ध ष являются наиболее важными,
+поскольку определяют особенности большинства букв.  Следовательно, можно предположить
+это, сначала разработав эти буквы; Процесс разработки шрифта Деванагари может быть
+упрощен для студентов и дизайнеров шрифтов, поскольку остальные буквы могут быть
+получены из них.</p>
+</blockquote>
+<p>Эрин Маклафлин предложила эти глифы в качестве начальной прогрессии:
+<strong>पाव + किमीनुफू + भरसगदह + र्मों ड्डू (крайние высоты) + यथधआछड … продолжить набор символов</strong>
+и предложила сосредоточиться на сочетании знака гласной “Au” + реф + анусвара!, Ма
+просто предназначена для потомков.</p>
+<p>Символы крайних высот позволяют определять вертикальные показатели и масштабировать
+две системы письма для совместной работы.  Adobe публикует очень большие семейства
+шрифтов, охватывающие самые разные орфографии.  Они разделены на семейства с общими
+пропорциями: Myriad Pro имеет латинский, греческий и кириллический шрифты, но
+еврейский и арабский дизайны упакованы как отдельные семейства, которые включают
+латинский дизайн <strong>modified</strong>.</p>
+<p>Вот сопоставление Myriad Pro Latin и Myriad арабского языка:</p>
+<p><img src="images/myriad_pro_vs_arabic.png" /></p>
+<p>(Обратить внимание на удачное решение дизайнеров Adobe: высота верхнего регистра
+латиницы в Myriad Arab равна высоте x в Myriad Pro Latin.)</p>
+<p>Обратить внимание, что в наборе символов Lohit самые нижние глифы представляют
+собой формы, предназначенные для размещения ниже символов, которые опускаются
+намного ниже базовой линии:</p>
+<p>(Vattu — нижняя базовая форма reph.  Дополнительная информация на странице
+<a href="https://docs.microsoft.com/en-us/typography/develop/convert-a-devangarai-font-to-unicode-otl">Microsoft terminology</a>.)</p>
+<p>В идеале должны располагаться ниже нижнего вертикального соединения, как в
+примере слева (Лохит, который не совсем подходит по вертикали, находится справа):</p>
+<h2 id="интервальный-подход">Интервальный подход</h2>
+<p>Разработка латинских шрифтов обычно включает в себя ряд таких пробельных строк:</p>
+<blockquote>
+  <p>HHxHOHOxOO<br />
+nnXnonoXoo</p>
+</blockquote>
+<p>где X представляет букву, на которой сосредоточение, и концепция рассматривает
+эту букву рядом с несколько плоским символом и круглым символом.</p>
+<p>Pa, и Va или Da являются эквивалентами деванагари:</p>
+<blockquote>
+  <p>पपXपवपवXवव<br />
+पपXपदपदXदद</p>
+</blockquote>
+<p>Когда только начинается проект, начать с полного заполнения страницы Pa,
+чтобы получить правильный баланс толщины штриха, размера счетчика и интервала.</p>
+<blockquote>
+  <p>पपपपपपपपपपपपपपपपपपपपप</p>
+</blockquote>
+<p>Как только Pa получит право “color”, можно начать добавлять другие основные,
+распространенные символы:</p>
+<blockquote>
+  <p>पपपवपपपपपवपववपपव (va, randomized)<br />
+पपपापपपपापपाप (Aa maatra, randomized)<br />
+पपपदपपपपपदपददपपद (da, randomized)</p>
+</blockquote>
+<p>Затем можно начать использовать показанные выше пробельные строки, чтобы
+добавить больше глифов:</p>
+<blockquote>
+  <p>पपरपदपदरदद<br />
+पपकपदपदकदद<br />
+पपलपदपदलदद<br />
+पपपीपदपदपीदद</p>
+</blockquote>
+<p>и так далее!</p>
+<p>Желание просмотреть их в таком длинном списке, чтобы можно было сравнивать
+один глиф с другим, прокручивая вниз — как на экране, так и при печати.
+Вертикальная проверка более эффективна, чем просто длинная строка непрерывного
+текста.  Вот почему:</p>
+<p>Когда смотреть на строки пробелов в вертикальных столбцах, можно легко сравнить
+интервал со строками, расположенными ранее выше и ниже текущего символа.  Точно
+так же, как можно легко распознать “rivers” в плохо выровненном полностью выровненном
+тексте, будет легче увидеть белые пробелы или темные пятна в интервалах, если
+сравнивать их с пробельной строкой, которая остается постоянной.</p>
+<p>Приведенная выше строка интервала позволяет сравнивать очень разные фигуры,
+чтобы интервал был более равномерным (вместо того, чтобы все круглые символы
+были слишком свободными или слишком узкими).</p>
+<p>А четыре глифа посередине, Pa/Da/Pa/Da, позволяют сравнить тестируемый символ
+с двумя наборами по три, если просто смотреть на Pa/Da/Pa или Da/Pa/Da.</p>
+<p><img src="images/deva-spacing.png" /></p>
+<p>Нарисовав несколько гласных и согласных и расставив их между собой, можно
+составить ограниченное количество слов только из этих букв и начать тестировать
+свой дизайн на реальном тексте.</p>
+<h2 id="структура-иерархии-работ">Структура иерархии работ</h2>
+<p>В любом проекте по дизайну шрифта отличной идеей будет набросать иерархическую
+структуру работы.</p>
+<p>Для очень опытного человека можно разработать первоначальный легкий и жирный шрифт
+деванагари примерно за 4–6 месяцев.</p>
+<p>Вот пример графика для интерполированного семейства из 9 гирь, вертикальных и
+наклонных, довольно простой конструкции ‘sans’, созданной очень опытным дизайнером:</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Week</th>
+      <th style="text-align: left">Goal</th>
+      <th style="text-align: right">Glyphs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: left">Разработайте дизайн с помощью 7–10 ключевых символов.</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: left">Уточнить, создавать самые высокие глифы, сопоставлять высоту и вес с латиницей, используя обычный и жирный шрифт, тестируровать рендеринг экрана с помощью ttfautohint</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: left">Уточнить пропорции с помощью отзывов читателей</td>
+      <td style="text-align: right">40</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">5</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">200</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">6</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">300</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">7</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">400</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">8</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">500</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">9</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">600</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">10</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">700</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">11</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">800</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">12</td>
+      <td style="text-align: left">Получить обратную связь от читателей, уточнить и добавить больше сочетаний</td>
+      <td style="text-align: right">900</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">13</td>
+      <td style="text-align: left">Вывести жирным шрифтом</td>
+      <td style="text-align: right">1,800</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">14</td>
+      <td style="text-align: left">Доработки, кернинг, тестирование с учетом отзывов читателей.</td>
+      <td style="text-align: right">1,800</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">15</td>
+      <td style="text-align: left">Экстраполяция и очистка тонких и черных начертаний, создание и очистка наклонных стилей.</td>
+      <td style="text-align: right">3,600</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">16</td>
+      <td style="text-align: left">Уточнение интерполированных стилей</td>
+      <td style="text-align: right">3,600</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">17</td>
+      <td style="text-align: left">Общая доработка интервалов, кернинга и тестирования во всех стилях</td>
+      <td style="text-align: right">3,600</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">18</td>
+      <td style="text-align: left">Завершение</td>
+      <td style="text-align: right">3,600</td>
+    </tr>
+  </tbody>
+</table>
+<p>Возможно, задача работать со шрифтом, исходный код которого отсутствует, а есть
+только двоичные таблицы OpenType GPOS/GSUB.  Существует несколько инструментов,
+которые могут преобразовать их в синтаксис Adobe FEA, включая FontForge, но
+выходные данные каждого инструмента потребуют переработки вручную.</p>
+<p>Adobe FDK содержит инструмент ‘spot’, который можно использовать следующим образом:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spot -t GSUB=7 Font.otf &gt; GSUB.fea
+</code></pre></div></div>
+<p>Проект Noto имеет <a href="https://github.com/googlei18n/nototools/blob/master/nototools/dump_otl.py">dump_otl.py</a></p>
+<p>Собственные приложения ‘Fontlab Studio’ и ‘OpenType Master’ также имеют
+конвертеры.</p>
+<h2 id="полезные-ресурсы">Полезные ресурсы</h2>
+<h3 id="введение">Введение</h3>
+<ul>
+  <li><a href="https://www.linotype.com/6896/devanagari.html">Деванагари — Linotype</a></li>
+</ul>
+<h3 id="где-искать-вдохновение-и-идеи">Где искать вдохновение и идеи</h3>
+<p>Посмотреть на шрифты Деванагари <a href="https://www.indiantypefoundry.com/">Indian Type Foundry</a>,
+и те, которые были только что выпущены через Google Fonts, для вдохновения на
+разнообразие форм букв.</p>
+<p>Еще одно хорошее место для поиска газетных сайтов “e-paper” на хинди, чтобы увидеть
+реальные используемые шрифты.  В рекламных объявлениях — шрифты обычно более
+разнообразны.  <a href="http://epaper.jagran.com">Jagran</a> — очень широко распространенная
+индийская электронная газета.</p>
+<p>Flickr также является хорошим источником идей для изображений:</p>
+<ul>
+  <li><a href="https://www.flickr.com/groups/devanagari-script/">Nagari Script (Sanskrit &amp; Hindi)</a></li>
+  <li><a href="https://www.flickr.com/groups/37703106@N00/">devanagari script</a></li>
+  <li><a href="https://www.flickr.com/groups/indicscripts/">Indic &amp; Indian scripts</a></li>
+  <li><a href="https://www.flickr.com/photos/pauldhunt/sets/72157603715699186">Devanagari</a></li>
+</ul>
+<h4 id="исторические-источники">Исторические источники</h4>
+<p>Взять в свои руки копии «Введения в сценарий деванагари» Х. М. Ламберта, Oxford
+University Press, 1953 года, и «Типографии деванагари» (три тома) Б. С.  Наика,
+Управление языков, Бомбей, 1971 г.</p>
+<p>Помимо этого, есть как минимум два основных источника европейских шрифтов XIX века,
+на которые стоит обратить внимание: шрифты из Великобритании и шрифты из Германии
+(в основном из Лейпцига).  Эти типы использовались больше для оформления текстов
+на санскрите, чем для текстов на хинди.</p>
+<p>Попробовать также найти образцы 19 и 20 веков текстовые шрифты от индийских литейных
+мастерских.  Они значительно менее европеизированы, как и следовало ожидать.  В
+европейских академических санскритских лицах 19-го века происходят странные вещи,
+которые, похоже, вообще не появляются в индийской типографии 20-го века.  Эти индийские
+источники, вероятно, труднее найти в западных библиотеках, но, возможно, у Эрин
+Маклафлин больше источников.  Например, линотип «Деванагари» Мэтью Картера 1970-х годов
+основан на шрифтах литейного завода «Нирная Сагар».  Образцы их типов, а также шрифты
+Бомбейской типографской мастерской должны быть доступны в некоторых западных
+университетах и/или национальных библиотеках.  Также стоило бы взглянуть на Devanagari
+и Linotype Devanagari от Monotype (версия 1970-х годов и обновление 1980/90-х годов,
+а не оригинальная версия 1935 года, которая носила только то же имя).</p>
+<p>В компании Typefounders в Нидерландах нет шрифта деванагари (Чарльз Энсхеде,
+Гарри Картер, 1978).  Что бы ни делать, не смотреть на шрифты Бодони из его
+руководства 1818 года.</p>
+<p>Некоторые образцы деванагари немецкого производства от H. Berthold AG можно увидеть
+в Alphabete и Schriftzeichen des Morgen- und des Abendlandes, из Reichsdruckerei,
+Berlin 1924, p. 45–47.</p>
+<h3 id="статьи">Статьи</h3>
+<ul>
+  <li>Саранг Кулкарни написал <a href="http://www.typoday.in/2013/spk_papers13/sarang-kulkarni-typographyday2013.pdf">“Проблемы с типом отображения Деванагари (PDF)”</a>.</li>
+  <li>Яшдип Голап написал <a href="http://www.typoday.in/2012/spk_papers/yashodeep-gholap-typographyday2012.pdf">Разработка текстового шрифта деванагари для использования в газетах (PDF)</a>.</li>
+  <li>Диссертация MATD Вайбхава Сингха, <a href="http://issuu.com/typefacedesign/docs/vaibhav_singh_dissertation">Деванагари в многострочной типографике</a>.</li>
+</ul>
+<h3 id="lohit2-деванагари">Lohit2 Деванагари</h3>
+<p>Lohit2 Devanagari можно использовать в качестве основы для новых шрифтов OFL,
+используя его список глифов и код макета OpenType.  Доступно как
+<a href="https://github.com/pravins/lohit2/tree/master/devanagari">оригинальные исходники FontForge</a> или как <a href="https://github.com/frank-trampe/lohit2/archive/master.zip">UFO zip download</a>.</p>
+<h3 id="макет-opentype">Макет OpenType</h3>
+<ul>
+  <li><a href="http://www.microsoft.com/typography/OpenTypeDev/devanagari/intro.htm">Страница разработки шрифтов Microsoft Devanagari OpenType</a></li>
+</ul>
+<h3 id="анатомия-деванагари">Анатомия Деванагари</h3>
+<ul>
+  <li><a href="http://www.tdil-dc.in/tdildcMain/articles/82170Devanagari%20Script%20Behaviour%20for%20Hindi%20%20ver%201.4.10.pdf">TDIL Грамматика письма деванагари (PDF)</a>.</li>
+  <li><a href="https://groups.google.com/d/msg/googlefontdirectory-discuss/XRYMYHZpUVc/_mLQWbr8rp8J">Две страницы из «Руководства по каллиграфии деванагари» Акшараи.</a>, что можно использовать в качестве эталона для определения угла наклона пера и пропорций букв.</li>
+  <li>Профессор Гириш Давли из IIT Bombay IDC (сравним с Медиа-лабораторией Массачусетского технологического института в США) опубликовал это <a href="https://web.archive.org/web/20130913220315/http://www.idc.iitb.ac.in/resources/dt-jan-2009/Anatomy%20of%20Devanagari.pdf">Статья по анатомии деванагари (PDF)</a>.</li>
+</ul>
+<p>Если читатель новичок в письме деванагари, важно знать традиционное каллиграфическое
+ударение пера, которое отличается от латинского.  Вот краткая демонстрация угла хода
+и традиционного взвешивания кривых.  Дизайн будет более успешным и менее “Latinized”,
+если рисовать кривые в соответствии с этими принципами веса, а не вырезать и
+вставлять части букв латинского алфавита.</p>
+<iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/_P-Ty512SyA?rel=0" frameborder="0" allowfullscreen=""></iframe>
+<p><a href="http://www.unicode.org/charts/PDF/U0900.pdf">Страница Деванагари в Юникоде</a> показаны основные буквы, но не союзы.</p>
+<h3 id="инструменты-тестирования">Инструменты тестирования</h3>
+<p>Поддержка Adobe InDesign шрифтов OpenType для неевропейских шрифтов стала надежной
+только с появлением Creative Cloud и <a href="http://blogs.adobe.com/vikrant/2012/05/indesign-cs6-indic-support-and-preferences/">опция абзаца World Ready Composer должна быть включена</a>;
+даже последнюю версию можно улучшить.  Реализации libre
+<a href="https://freedesktop.org/wiki/Software/HarfBuzz/">harfbuzz</a> и Microsoft OpenType
+являются наиболее полными, поэтому следует протестировать шрифты в последних версиях
+Chrome, Firefox и Microsoft Word как в Windows, так и в Mac OS X, чтобы убедиться,
+что ошибки в формировании связаны со шрифтами.</p>
+<p><a href="http://www.impallari.com/testing/index-devanagari.php">Страница тестирования Деванагари Пабло Импаллари</a>
+(с <a href="https://github.com/impallari/font-testing-page/">исходники на GitHub!</a>)
+предоставляет несколько готовых макетов тестирования, и можно перетащить OTF или TTF
+прямо на страницу, чтобы загрузить его.</p>
+<p><a href="https://anexasajoop.github.io/devanagari-type-tools">Текстовые инструменты Пуджи Саксены</a> (с <a href="https://github.com/anexasajoop/devanagari-type-tools">sources on GitHub!</a>)
+генерирует тестовые тексты для комбинаций букв.</p>
+<p><a href="http://www.adhesiontext.com/devanagari/">Adhesion Text Devanagari</a> — это специальная
+версия инструмента, созданного Мигелем Соузой для создания фиктивного текста,
+состоящего только из слов, которые можно написать с помощью уже нарисованных глифов.
+Вставить глифы (अआईईउऊ и так далее), которые нарисованы, и получить несколько
+примеров слов, которые можно использовать в доказательствах.</p>
+<p><a href="http://devanaguide.huertatipografica.com/">Devanaguide</a> от Huerta Tipografica —
+инструмент с открытым исходным кодом, позволяющий просматривать и сравнивать различные
+шрифты деванагари.  Также позволяет вводить текст и просматривать его во всех шрифтах
+одновременно.  Devanaguide также включает <a href="https://github.com/andrestelex/devanaguide/blob/master/deva-dictionary.txt">Список слов деванагари</a>, что полезено при разработке
+тестового текста.</p>
+<h3 id="другие-ссылки">Другие ссылки</h3>
+<p><a href="http://dsquare.in/devft/en/books.php">Книги и справочники по типографским проектам деванагари</a> —
+список ресурсов, которые, вероятно, удовлетворят большую часть исследовательских
+требований большинства проектов.  Составлено профессором Гиришем Давли из IIT Bombay
+IDC.</p>
+<h3 id="обсуждения-на-форуме">Обсуждения на форуме</h3>
+<p>Typophile</p>
+<ul>
+  <li><a href="http://typophile.com/node/95460">Adobe Devanagari</a></li>
+</ul>
+<p>Каталог Google Fonts Обсудить</p>
+<ul>
+  <li><a href="https://groups.google.com/forum/#!topic/googlefontdirectory-discuss/TaX0NKHket4">Примечание об условных обозначениях расположения линии плеч, нижних и верхних частей и т. д. по отношению к латыни?</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/googlefontdirectory-discuss/VAhs5MnjZ30">Начать с Lohit2</a> и <a href="https://groups.google.com/forum/#!topic/googlefontdirectory-discuss/_3gtTalzKUQ">pdf</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/googlefontdirectory-discuss/q8CQHVxVZ0Y">Adobe Списки глифов</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/googlefontdirectory-discuss/eYmmBQENBb8">rVocalic и rrVocalic</a></li>
+  <li><a href="https://groups.google.com/forum/#!topic/googlefontdirectory-discuss/7dtNw8wwJzI">Приоритеты Символов Деванагари</a></li>
+</ul>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

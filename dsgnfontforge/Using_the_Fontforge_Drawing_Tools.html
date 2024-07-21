@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Использование инструментов рисования FontForge</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Использование инструментов рисования FontForge</h1>
+          <p>Разработка шрифта в FontForge потребует использования ряда инструментов и утилит,
+начиная с набора инструментов для рисования, которые могут показаться знакомыми
+пользователям, имеющим опыт работы с векторной графикой — между ними есть заметные
+различия.  Сначала постараться понять, как работают кривые Безье, прежде чем
+рассматривать сами инструменты рисования FontForge.</p>
+<h2 id="понимание-кривых-безье">Понимание кривых Безье</h2>
+<p>Понятие “Bézier curves” относится к конкретному математическому представлению,
+используемому для создания гладких кривых в цифровом виде.  Обычно используются кривые
+<em>Cubic</em> и <em>Quadratic</em> в порядке — хотя FontForge также поддерживает кривые <em>Spiro</em>,
+которые являются альтернативным представлением для дизайнера.</p>
+<p>В этой главе обсуждаются только пути <em>Cubic</em>, поскольку они обычно используются при
+рисовании глифов.  Пути <em>Spiro</em> будут обсуждаться в следующей главе, а кривые <em>Quadratic</em>
+встречаются только в шрифтах TrueType и редко используются при рисовании —, они
+скорее генерируются во время сборки.</p>
+<p>Типичный путь B é zier состоит из якоря с двумя маркерами, обозначающими общее
+направление —  Длина каждого маркера определяет длину кривой с каждой стороны
+— смотреть ниже.</p>
+<h3 id="различные-виды-точек">Различные виды точек</h3>
+<h4 id="точки-кривой-показаны-в-виде-точек-круглой-формы">Точки кривой (показаны в виде точек круглой формы)</h4>
+<p><em>Curve points</em> имеет два маркера, каждый из которых связан с другим, поэтому линия
+между ними всегда остается прямой, чтобы создать плавную кривую с каждой стороны.</p>
+<p><img src="images/tools-curve-point.png" alt="" /></p>
+<h4 class="quiet">H/V Точки кривой (показаны в виде ромбовидных точек)</h4>
+<p><em>H/V curve points</em> ( ‘horizontal/vertical’ ) — вариант точек кривой, которые
+привязываются к горизонтальной или вертикальной оси —, что является важным
+инструментом для правильного выполнения форм B é (подробнее об этом в
+следующем разделе).</p>
+<p><img src="images/tools-HV-point.png" alt="" /></p>
+<h4 id="монеты-или-угловые-точки-показаны-точками-квадратной-формы">Монеты или угловые точки (показаны точками квадратной формы)</h4>
+<p><em>Coins</em> может иметь 0, 1 или 2 дескриптора é zier.  Положение каждой ручки
+не зависит от других, что делает ее подходящей для разрывов контура.  Без ручек
+монеты будут иметь прямые линии.</p>
+<p><img src="images/tools-square-point.png" alt="" /></p>
+<p><img src="images/tools_corner_point_2.png" alt="" /></p>
+<p><img src="images/tools-corner-point-3.png" alt="" /></p>
+<h4 id="точки-касания-показаны-в-виде-точек-треугольной-формы-или-arrowheads">Точки касания (показаны в виде точек треугольной формы или ‘arrowheads’)</h4>
+<p>Если задача начать с прямой линии, а затем начать плавно изгибаться, нужно использовать
+<em>tangent points</em> .  A <em>tangent</em> оставляет прямую линию с одной стороны, а маркер Bé
+на другой стороне указывает ее направление —, что обеспечивает непрерывный
+переход между линией и кривой.</p>
+<p><img src="images/tools-tangent-point.png" alt="" /></p>
+<h3 id="делать-правильно">Делать правильно</h3>
+<p>Чтобы создать правильные кривые — с минимальным количеством контрольных точек и
+облегченной растеризацией, привязки всегда следует размещать в <strong>the extremas of the curve</strong>.
+Однако в тех местах, где в буквенных формах есть разрывы, строка, определяющая путь, должна
+быть <strong>horizontal or vertical</strong> .</p>
+<p><img src="images/bezier_sample.png" alt="" /></p>
+<div class="note">
+<p><b>Note:</b> If your control points aren’t placed at the extremas, FontForge will point out
+the actual extrema with a sight icon (`⊕`):</p>
+<img src="images/bezier_sample_3.png" alt="" />
+<p>Затем можно исправить это, скопировав текущий контур на другой слой, а затем переместив
+контрольные точки так, чтобы он был расположен правильно &mdash;, в противном случае инструмент
+проверки FontForge автоматически добавит точку в экстремумах, и в этот момент можно объединить
+неуместную привязку с
+<i>Right-click &gt; Merge</i>.<br />
+Подробнее об этом будет сказано далее в <a href="Making_Sure_Your_Font_Works_Validation.html">
+главы проверка</a>.</p>
+</div>
+<p>Чтобы уточнить, есть два случая, когда придется отказаться от горизонтальных/вертикальных
+путей Bézier:</p>
+<ul>
+  <li>Если задача изменить общий наклон кривой, как в случае с верхней левой частью ‘a’ ниже,
+она остается почти плоской:<br />
+<img src="images/bezier_sample_2.png" alt="" /></li>
+  <li>Если задача разместить разрывы в буквенных формах, как в случае с нижней левой частью ‘g’
+ниже —, обычно именно здесь требуется использовать <em>Coin</em> (помимо для рисования линий):<br />
+<img src="images/bezier_sample_4.png" alt="" /></li>
+</ul>
+<p class="note"><b>Примечание:</b> Как видно, при установке перерывов с помощью <i>Coin</i>,
+направление каждого маркера должно быть касательным к кривой, к которой он приходит.</p>
+<h2 id="освоение-инструментов-рисования-fontforge">Освоение инструментов рисования FontForge.</h2>
+<p>В главном окне дважды щелкните одно из полей с глифами, чтобы запустить Glyph Window.</p>
+<p><img src="images/glyph_window.png" alt="" /></p>
+<div class="note">
+<p><b>Примечание:</b> The numbers along the top where the x and y axis intersect indicate, from left to
+right:</p>
+<ul>
+<li>Текущее (x,y) положение курсора на холсте.</li>
+<li>Местоположение последней выбранной точки</li>
+<li>Относительное положение курсора к выбранной точке</li>
+<li>Расстояние между курсором и выбранной точкой</li>
+<li>Угол от выбранной точки до курсора (относительно базовой линии)</li>
+<li>Текущий уровень увеличения, за которым следует имя активного слоя.</li>
+</ul>
+</div>
+<p class="warn"><b>Осторожно:</b> Иногда кажется, что FontForge не отвечает, когда положение
+внутри Glyph Window.  Возможно, скрыто открытое диалоговое окно &mdash;поэтому просто переместиться
+и обработать диалоговое окно.</p>
+<p><em>Line</em> состоит из 2 точек.</p>
+<p><img src="images/tools_line_points.png" alt="" /></p>
+<p><em>Spline</em> состоит из 4 точек: 2 конечных точек сплайна и 2 ‘handles’, которые описывают
+наклон сплайна в этих конечных точках.</p>
+<p><img src="images/tools_splines_points.png" alt="" /></p>
+<h3 id="копирование-вставка-вырезание-и-удаление-точек-сплайнов-и-линий">Копирование, вставка, вырезание и удаление точек, сплайнов и линий.</h3>
+<p>Как и большинство программ для рисования, FontForge позволяет Copy, Cut, Paste или
+Delete любую точку, линию или сплайн.  Эти команды доступны в меню «Правка» или с
+помощью типичных сочетаний клавиш вашей ОС (также отображаются рядом с каждой
+командой в меню).</p>
+<h2 id="знакомство-с-инструментами-рисования">Знакомство с инструментами рисования.</h2>
+<p>Теперь, когда вы знаете, как работать с холстом, пришло время познакомиться с
+инструментами.</p>
+<h3 id="точка-и-масштаб">Точка и Масштаб</h3>
+<p><img src="images/point_zoom.png" alt="" /></p>
+<p>Point и Zoom ведут себя аналогично эквивалентным инструментам в других приложениях.
+Указатель — это инструмент выделения, используемый для выбора точек, путей и других
+объектов на холсте.  Zoom tool позволяет легко увеличивать масштаб (Z); для уменьшения
+масштаба: перейти в меню «Вид» и выбрать <em>Zoom out</em> (X) или <em>Fit</em>.</p>
+<p>Обратить внимание, что также можно на мгновение переключиться на инструмент-указатель
+во время использования другого, удерживая клавишу <kbd>Ctrl</kbd>.</p>
+<h3 id="инструмент-от-руки">Инструмент «От руки»</h3>
+<p><img src="images/freehand_tool.png" alt="" /></p>
+<p>Инструмент «От руки» позволяет рисовать нестандартные пути.</p>
+<p>В области рисования нажать и удерживать, затем переместиться, чтобы нарисовать.  Вернуться
+к инструменту «Указатель», и можно выбирать точки на нарисованном пути.</p>
+<p>Когда выбрать одну из точек пути, она превратится в желтый круг.  Если выбранная
+точка находится на кривой, ее контрольные точки будут отображаться с пурпурным и
+голубым маркером.  Можно взять любой маркер и перетащить его, чтобы изменить форму кривой.</p>
+<h3 id="точечные-инструменты">Точечные инструменты</h3>
+<p>Хорошо, теперь перейти к использованию точечных инструментов.</p>
+<p><img src="images/point_tools_labelled.png" alt="" /></p>
+<p>Чтобы добавить точку к пути, сначала выбрать любой из этих инструментов, затем
+щелкнуть путь и слегка нажать на него.  Получить новую точку на линии.</p>
+<p>Curve point tool используется для добавления точки в изогнутый сегмент.  HVCurve point tool
+ограничивает новые точки так, чтобы они имели либо горизонтальные, либо вертикальные
+контрольные точки —, это важно для настройки точек экстремума.  Corner point tool
+позволяет сделать резкий поворот на пути.  Tangent point tool позволяет переходить от
+прямого сегмента к изогнутому сегменту пути.</p>
+<h3 id="pen-tool">Pen tool</h3>
+<p><img src="images/addpoint_tool.png" alt="" /></p>
+<p>Pen tool позволяет добавлять точку на кривую и перетаскивать ее контрольные точки.</p>
+<h3 id="spiro">Spiro</h3>
+<p><img src="images/spiro.png" alt="" /></p>
+<p>Выбор Spiro tool переводит в режим рисования Spiro.  Рисование Spiro позволяет рисовать
+кривые, которые перестраиваются при изменении положения узлов.  Некоторые люди предпочитают
+этот подход стандартному подходу (известному как редактирование Bézier), но если
+привычка к редактированию по Безье, обнаружить, что делает некоторые неожиданные вещи.</p>
+<h3 id="knife">Knife</h3>
+<p><img src="images/knife.png" alt="" /></p>
+<p>Knife tool позволяет разрезать сплайны пополам.  Это пригодится, если нарисовать фигуру,
+но нужна только ее часть.</p>
+<h3 id="ruler">Ruler</h3>
+<p><img src="images/ruler.png" alt="" /></p>
+<p>ruler tool предоставляет информацию об измерениях и координатах.  При использовании
+отображается плавающий ‘tooltip’ рядом с курсором.  Если навести курсор на точку,
+всплывающая подсказка предоставит еще более подробную информацию об измерениях и
+координатах.  Если поднести к сплайну, предоставится информация о кривизне и радиусе.
+Самое полезное, если щелкнуть и перетащить инструмент «Линейка», видно расстояние,
+на которое перетащить курсор, а также каждое пересечение, через которое растяжение.</p>
+<h3 id="инструменты-преобразования">Инструменты преобразования</h3>
+<p>Существует шесть инструментов преобразования:</p>
+<p><img src="images/transform_tools_labelled.png" alt="" /></p>
+<p><strong>Примечание:</strong> Для всех Transform tools, если дважды щелкнуть инструмент, можно
+ввести числовые значения.</p>
+<p>Scale tool позволяет вручную масштабировать объект.  Удерживая нажатой клавишу
+<kbd>Shift</kbd>, можно масштабировать объект, сохраняя при этом его пропорциональное
+соотношение.</p>
+<p>Rotate tool позволяет свободно вращать объект.  Вращается выбранный объект вокруг
+того места, вы первоначальный щелчёк.</p>
+<p>Инструмент 3D-поворота позволяет вращать объект в третьем измерении и проецировать
+результат на плоскость x-y.</p>
+<p>Flip tool позволяет перевернуть выделение по горизонтали или по вертикали.  Точка,
+в которой щелкнуть мышью, является исходной точкой преобразования.</p>
+<p><strong>Примечание:</strong> После переворота точки, вероятно, задача применить Element &gt;
+<em>Correct Direction</em>.</p>
+<p>Skew tool позволяет наклон выделения по горизонтали по часовой стрелке или
+против часовой стрелки (под углом в диалоге подразумевается движение против
+часовой стрелки).</p>
+<p>Perspective tool дает еще один способ нелинейно исказить форму.</p>
+<p><strong>Примечание:</strong> Для перспективного преобразования числовой вариант отсутствует.</p>
+<h3 id="rectangleellipse-и-polygonstar-tools">Rectangle/Ellipse и Polygon/Star tools</h3>
+<p>Инструменты позволяют рисовать примитивные геометрические фигуры, что быстрее,
+чем создавать эти фигуры из отдельных сегментов линий.</p>
+<p><img src="images/rectangle_poly_labelled.png" alt="" /></p>
+<p>Нажатием на шеврон на этих инструментах, переключиться на альтернативный инструмент.
+Если дважды щелкнуть любой из инструментов, открыть параметры типа фигуры.</p>
+<p>Rectangle options: угловой стиль и ограничивающая рамка (угол или центр).</p>
+<p>Ellipse options: ограничивающая рамка или центр.</p>
+<p>Polygon options: количество вершин.</p>
+<p>Star options: количество звездочек и глубина баллов в процентах.  Чем выше процентное значение,
+тем длиннее плечи звезды.</p>
+<h3 id="копка-мыши-1-и-2">Копка мыши 1 и 2</h3>
+<p><img src="images/danger.png" alt="" /></p>
+<p>Под панелью инструментов просмотреть текущий инструмент и операции, доступные обеим кнопкам мыши:</p>
+<ul>
+  <li>Левая кнопка (КнопкаМыши1)</li>
+  <li>Левая кнопка + <kbd>Ctrl</kbd> (^КнопкаМыши1)</li>
+  <li>Кнопка колеса мыши (КнопкаМыши2)</li>
+  <li>Кнопка колеса мыши + <kbd>Ctrl</kbd> (^КнопкаМыши2)</li>
+</ul>
+<p>Таким образом, использовать несколько разных инструментов без необходимости неоднократно
+нажимать на панель инструментов.</p>
+<p class="warn"><b>Осторожно:</b> Похоже, что функциональность КнопокиМыши в настоящее время не
+работает должным образом.</p>
+<h3 id="слои">Слои</h3>
+<p>По умолчанию холст FontForge имеет три слоя: Guide layer, Background layer и Foreground layer.
+Guide layers используются для вставки направляющих (например, направляющих высоты X или
+высоты кепки).  Foreground layers и фоновый слои используются для рисования, но в окончательный
+шрифт будет преобразован только самый верхний слой переднего плана.</p>
+<p><img src="images/layers.png" alt="" /></p>
+<p>Флажок указывает, виден ли каждый слой, и можно снять его, чтобы сделать слой невидимым.
+C (или Q) указывает, используются ли кривые Cubic или Quadratic.</p>
+<p>#, B, или F указывает, является ли тип каждого слоя Guide layer, Background layer, или
+Foreground layer, что важно, если добавлять больше собственных слоев.  Создавать и удалять
+дополнительные слои с помощью кнопок плюс (+) или минус (−) в этом разделе панели
+инструментов.  Типом слоя и типом кривой также можно управлять, щелкнув правой кнопкой
+мыши (если есть дополнительные слои).</p>
+<h2 id="базовый-чертеж">Базовый чертеж</h2>
+<p>Далее рассмотреть некоторые основные рабочие процессы рисования, которые вам часто нужны.</p>
+<h3 id="вырезание-одной-фигуры-внутри-другой">Вырезание одной фигуры внутри другой</h3>
+<ol>
+  <li>Начать с использования Rectangle tool для рисования прямоугольника в области рисования окна Glyph.</li>
+  <li>Затем использовать Ellipse tool, чтобы нарисовать эллипс внутри только что нарисованного
+прямоугольника.
+<img src="images/O%20at%2079%20from%20Untitled1%20-_010.png" alt="" /></li>
+  <li>Переход в меню Element и выбрать <em>Correct Direction</em>.  Видно, что две фигуры слились воедино
+и что, по сути, пробить отверстие в центре прямоугольника.<br />
+<img src="images/O%20at%2079%20from%20Untitled1%20-_011.png" alt="" /></li>
+</ol>
+<h3 id="удалить-перекрытие">Удалить перекрытие</h3>
+<ol>
+  <li>Добавить звезду, которая перекрывает угол прямоугольника.
+<img src="images/O%20at%2079%20from%20Untitled1%20-_012.png" alt="" /></li>
+  <li>Выбрать звезду и более раннюю фигуру.  Нужен выбор только одной точки каждой перекрывающейся
+фигуры, но можно выбрать дополнительные точки.</li>
+  <li>Переход к Element &gt;Overlap &gt; <em>Remove overlap</em>.  Видно, что две фигуры стали одной.
+<img src="images/O%20at%2079%20from%20Untitled1%20-_013.png" alt="" /></li>
+</ol>
+<h3 id="добавить-точку">Добавить Точку</h3>
+<p>Использовать Pen tool, щелкнуть и удерживать середину сегмента линии, затем перетащить мышь,
+чтобы изменить форму.</p>
+<p><img src="images/O%20at%2079%20from%20Untitled1%20-_014.png" alt="" /></p>
+<h3 id="tangent-точки">Tangent точки</h3>
+<p>Выбрать нижнюю левую угловую точку новой фигуры (пересечение кривой и прямой линии).
+Из Point menu видно, что <em>Corner Point</em> отмечен.  Выбрать <em>Tangent</em>.
+Изменит квадратный узел на треугольник, но это все, что произойдет, пока не сделан следующий шаг:
+расширение контрольных точек.</p>
+<p>Для этого выбрать Element &gt; <em>Get Info</em>, что откроет файл Point Info Window.  На вкладке
+Location в этом окне перейти к набору полей Next CP и установить для Distance большое число,
+например 75.
+Нажать OK.  Видно, что кривая теперь плавно переходит в прямую линию.</p>
+<p><img src="images/O%20at%2079%20from%20Untitled1%20-_015.png" alt="" /></p>
+<h3 id="трансформация">Трансформация</h3>
+<p>Теперь выделить примерно четверть формы — звезды и часть эллипса посередине.</p>
+<p><img src="images/O%20at%2079%20from%20Untitled1%20-_016.png" alt="" /></p>
+<p>Выбрать 3D Rotate tool, переместить в середину выделенной области, медленно щелкнуть
+и перетащить, пока не увидить то, что нравится, затем отпустить.  Вот пример 3D Rotate,
+использованного на тренировочном изображении:</p>
+<p><img src="images/O%20at%2079%20from%20Untitled1%20-_017.png" alt="" /></p>
+<h3 id="установить-форму-и-ширину-обводки">Установить форму и ширину обводки</h3>
+<p>До сих пор использовалось Freehand drawing tool для рисования линии.  Если дважды
+щелкнуть Freehand tool, получить показанный здесь Freehand dialog, который содержит
+окно рисования.  Здесь выбрать форму и размер пера.  Диалоговое окно также появляется,
+когда выбирается опция <em>Expand Stroke</em> в меню Element.</p>
+<p><img src="images/Freehand_018.png" alt="" /></p>
+<p>Используя Corner tool, нарисовать многоугольник и нажать ОК.</p>
+<p>Теперь нарисовать линию с помощью Freehand drawing tool.  Когда отпускается кнопка мыши,
+новый путь автоматически приобретает форму, выбранную в Freehand dialog, как показано здесь.</p>
+<p><img src="images/Q%20at%2081%20from%20Untitled1%20-_019.png" alt="" /></p>
+<h2 id="keep-drawing">Keep drawing!</h2>
+<p>Следует продолжать экспериментировать с инструментами рисования до тех пор, пока
+не почувствовать, что можно использовать их для рисования и преобразования любых
+необходимых фигур.  На этом этапе готовность приступить к созданию компонентов глифов,
+но также следует потратить время на изучение другого набора инструментов FontForge.
+Следующая глава, [“Рисование со Спиро”], описывается режим Spiro drawing.  Spiro drawing
+настолько отличается от редактирования кривой Bézier, что требует отдельного
+объяснения.</p>
+<h1 id="дальнейшее-чтение">Дальнейшее чтение</h1>
+<p>A <a href="http://typedrawers.com/discussion/967">Форум TypeDrawers Обсуждение Безье</a> включены эти ссылки,
+которыми поделилась Нина Штёссингер
+<a href="https://twitter.com/ninastoessinger/status/593687255341998080">on twitter</a>:</p>
+<ul>
+  <li><a href="http://learn.scannerlicker.net/2014/04/16/bezier-curves-and-type-design-a-tutorial/">Кривые Безье и шрифтовой дизайн: A Tutorial</a> Фабио Дуарте Мартинс</li>
+  <li><a href="http://theagsc.com/community/tutorials/so-whats-the-big-deal-with-horizontal-vertical-bezier-handles-anyway/">Так в чем же особенность горизонтальных &amp; вертикальных маркеров Безье?</a></li>
+  <li><a href="http://design.tutsplus.com/tutorials/hand-lettering-how-to-vector-your-letterforms--cms-23248">Ручная надпись: Как векторизировать буквы</a> Скотт Бирсак</li>
+  <li><a href="http://typeworkshop.com/index.php?id1=type-basics&amp;id2=&amp;id3=&amp;id4=&amp;id5=&amp;idpic=15#pictloader">Тип Основы</a> от Underware</li>
+  <li><a href="http://bezier.method.ac">Игра Безье</a> Марк Маккей</li>
+</ul>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

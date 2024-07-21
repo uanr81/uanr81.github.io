@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Планирование проекта</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Планирование проекта</h1>
+          <p>Теперь, когда представление о том, как может варьироваться дизайн шрифта, решить, будет ли
+в проекте только один шрифт, или это будет коллекция из нескольких взаимосвязанных шрифтов,
+или (теперь традиционный).
+Семья из трех или четырех стилей, а может быть, и что-то еще большее.</p>
+<p>Общие стили семейств шрифтов включают:</p>
+<ul>
+  <li>Обычный и жирный шрифт</li>
+  <li>Regular, Bold, Italic — в конце концов с Bold Italic</li>
+  <li>Thin, Light, Book, Regular, Semi-Bold, Bold, Extra-Bold, Heavy и Black</li>
+  <li>Regular, Condensed, Bold и Bold Condensed</li>
+  <li>Narrow, Condensed, Wide и Extra Wide</li>
+  <li>Regular, Semi-Flourished, Flourished, Very Flourished, Extremely Flourished.</li>
+</ul>
+<p>Хотя существуют причины, по которым существуют типичные модели поведения в семьях, обнаружить,
+что нужна совсем другая группировка.</p>
+<p>Масштаб проекта может определяться исключительно амбициями и количеством свободного времени,
+которое есть.  Но объем проекта часто определяется предполагаемым использованием коллекции или
+семейства шрифтов или, что еще более важно, потребностями клиента.  Конечно, для профессиональных
+дизайнеров шрифтов последние два аспекта обычно являются определяющими факторами.</p>
+<h2 id="feeling">Feeling</h2>
+<p>Самое важное в шрифтовом дизайне — ощущение, которое вызывается.  Это, как известно, трудно
+выразить словами, но именно это отличает конкретный шрифт от любого другого.</p>
+<p>Шрифтовой дизайнер в Portugal, Natanael Gama, разработал <a href="https://www.google.com/fonts/specimen/Exo">Exo family</a> с FontForge.
+На своей домашней странице описывает еще один проект скульптора <a href="http://ndiscovered.com/john-williams/">John Williams</a> и включает графику, показывающую его краткое описание в матрице континуумов чувств:</p>
+<ul>
+  <li>От фигуративного к абстрактному 50%</li>
+  <li>От изящного к прочному: 30%</li>
+  <li>От спокойного к энергичному: 0%</li>
+  <li>Загадочно до простоты: 15%</li>
+  <li>Экспериментальное к стандартному: 15%</li>
+  <li>От престижного к обычному: 15%</li>
+  <li>Другие идеи: Beautiful, Outside Spaces, Human Condition</li>
+</ul>
+<h2 id="glyph-покрытие">Glyph покрытие</h2>
+<p>Шрифт остается шрифтом, даже если имеется только один глиф.  Но шрифт также может содержать
+несколько сотен или даже тысяч символов.  Если проект инициирован самостоятельно, то этот
+выбор в конечном итоге произволен.  Решить, что нужны только заглавные буквы или задача
+включить глифы из других используемых вами шрифтов.  Если выполнять работу для клиента,
+возможно, задача уточнить, какой язык или языки поддерживает шрифт.  Целью также может быть
+расширение существующего шрифта, добавление нескольких глифов, чтобы работало на одном или
+нескольких дополнительных языках.</p>
+<p>Конечно, было бы хорошей идеей сделать этот выбор сознательно и ошибиться в сторону
+включения меньшего, а не большего.  Часто при создании шрифта может возникнуть соблазн
+включать все больше и больше глифов, но зачастую более ценно продолжать улучшать основной
+набор глифов, а не добавлять новые.</p>
+<h2 id="мультистильное-семейство-рабочий-процесс">Мультистильное семейство рабочий процесс</h2>
+<p>Если с самого начала извечно, что будет более одного шрифта, сэкономить время, если будут
+планы и создавать семейство шрифтов систематически и работать над стилями параллельно,
+а не создавать один стиль за раз.</p>
+<p>Конечно, невозможно создать стиль <em>every</em> полностью параллельным образом, но можно выполнить
+определенный этап проектирования для каждого стиля.  Позволяет проанализировать взаимосвязи
+между стилями на ранних этапах процесса.  Обнаружить, что полезно заполнить один полный набор
+тестовых букв (например, “adhesion”) для обычной версии, а затем создать такой же набор тестовых
+букв в других стилях.  Однако также можно применить более детальный подход и принять решения
+относительно конкретных частей базовых букв (например, ‘n’ и ‘o’) для всех стилей.</p>
+<p>В зависимости от размера и состава планируемого семейства шрифтов вы можете обнаружить,
+что создание экземпляров глифов, которые можно интерполировать, позволяет сэкономить время.
+Это не только позволяет интерполировать промежуточные стили, но также помогает сделать выбор
+в отношении типографских переменных, которые меняются между членами семейства.</p>
+<p>Обзор типографских переменных, которые следует принять во внимание, в главе
+<a href="What_Is_a_Font.html">“Что такое шрифт?”</a>.</p>
+<h2 id="техническое-управление-версиями">Техническое: Управление версиями</h2>
+<p>Следует научиться использовать Git и GitHub для хранения файлов и использовать формат
+“SFDir” для своих источников.</p>
+<ul>
+  <li><a href="https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github">https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github</a></li>
+  <li><a href="http://justinhileman.info/article/git-pretty/">http://justinhileman.info/article/git-pretty/</a></li>
+</ul>
+<h2 id="общий-процесс">Общий процесс</h2>
+<p>Еще в 2010 году Дэйв Кроссланд, Эбен Соркин, Клаус Эггерс Соренсен, Пабло Импаллари, Алексей Ваняшин,
+Дэн Ратиган и другие участники Anonymous разработали общую схему процесса для латинских шрифтов:</p>
+<p><img src="images/planning-process.png" width="584" height="1006" /></p>
+<p>Это было сделано с помощью Google Drawings, и, как и этот сайт, он распространяется по лицензии
+Creative Commons Attribution-ShareAlike.  Источник —
+<a href="https://commons.wikimedia.org/wiki/File:Latin_Typeface_Design_Process_Overview.pdf">здесь</a>.</p>
+<p>Версия для нелатинских проектов (деванагари) также доступна по адресу
+<a href="https://commons.wikimedia.org/wiki/File:Devanagari_Typeface_Design_Process_Overview.pdf">здесь</a>.</p>
+<!-- Редактируемые версии вышеперечисленного с неизвестной стабильностью можно найти в GitHub PR №225. -->
+<h2 id="тестовые-среды">Тестовые среды</h2>
+<p>При планировании проекта учитывать предполагаемые носители шрифта.  Примерами носителей являются
+веб-платформы и мобильные платформы, цифровые проекторы, дешевые офисные струйные и лазерные принтеры,
+высококлассные лазерные принтеры типографии, офсетная литографическая печать журналов и
+высокоскоростная печать больших тиражей газет.</p>
+<p>Затем следует попытка приобрести или организовать доступ к этим технологиям набора текста,
+чтобы увидеть реальные результаты своей работы.</p>
+<p>На протяжении всего процесса разработки шрифта вам будет очень полезно предварительно просмотреть
+набор текста с использованием вашего (прототипа) шрифта в разрешении, превышающем разрешение экрана
+вашего ноутбука или рабочей станции.  Обычно это означает лазерный принтер с “true” 1200 DPI и
+Adobe PostScript 3.  Частные лица могут приобрести что-то подобное примерно за 00 долларов,
+и некоторые рекомендации 2013 года были следующими:</p>
+<ul>
+  <li>HP P2055d</li>
+  <li>Xerox Phaser 4510</li>
+  <li>Xerox Phaser 5550</li>
+  <li>Nashua/Ricoh P7026N</li>
+</ul>
+<p>В мае 2013 года у студии <a href="http://productiontype.com">Тип производства</a> был аппарат Xerox 7525 с
+контроллером “fiery”, покупка которого стоила около 12 000 евро.  Его можно арендовать за 300 евро
+в месяц вместе с тонером, запчастями и техническим обслуживанием.
+В конце 2015 года Октавио Пардо аналогичным образом арендовал
+<a href="http://www.xerox.es/oficina/impresoras/impresoras-en-color/phaser-7100/eses.html">Xerox Phaser 7100</a>
+за 30 евро в месяц.</p>
+<h2 id="функции-opentype">Функции OpenType</h2>
+<p>Можно спланировать функции OpenType вашего проекта до того, как начнете рисовать.  Общие
+особенности включают в себя:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">liga</code> лигатуры</li>
+  <li><code class="language-plaintext highlighter-rouge">onum</code>, <code class="language-plaintext highlighter-rouge">lnum</code> цифры</li>
+</ul>
+<p>Для некоторых языков <code class="language-plaintext highlighter-rouge">locl</code> работает, а для других нет, поэтому лучше всего предоставлять формы,
+специфичные для языка, через <code class="language-plaintext highlighter-rouge">locl</code> и <code class="language-plaintext highlighter-rouge">ssNN</code> или <code class="language-plaintext highlighter-rouge">cvNN</code>.</p>
+<p>Спецификация OpenType допускает некоторые функции, которые не рекомендуются:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">hist</code>  Подробнее читать в этом
+<a href="http://typedrawers.com/discussion/1358/what-are-the-best-practices-for-the-hist-feature-long-s">discussion on TypeDrawers</a>.</li>
+</ul>
+<h2 id="дальнейшее-чтение">Дальнейшее чтение</h2>
+<ul>
+  <li>Презентация Аойф Муни о процессе шрифтового дизайна на TypeCon 2014: <a href="https://vimeo.com/107421895">https://vimeo.com/107421895</a></li>
+  <li>Обсуждение TypeDrawers <a href="http://typedrawers.com/discussion/314/printer-recommendations-for-proofing">Рекомендации принтеру по пробной печати</a></li>
+</ul>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

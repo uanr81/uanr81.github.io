@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Добавление глифов в арабский шрифт</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Добавление глифов в арабский шрифт</h1>
+          <h2 id="введение">Введение</h2>
+<p>В некоторых случаях в шрифте может отсутствовать глиф, необходимый для его
+использования в приложении.  С арабскими шрифтами здесь возникают особые
+проблемы, поскольку форма глифа зависит не только от его положения в слове,
+но и от атрибутов самой буквы.  Таким образом, используя бессмысленную
+последовательность <em>babab</em>, буква <em>beh</em> имеет три разные формы в зависимости
+от того, идет ли она вначале, посередине или вконце.  Однако при использовании
+бессмысленной последовательности <em>dadad</em> буква <em>dal</em> имеет только одну форму,
+независимо от того, где она встречается в слове.</p>
+<p>Шрифты под открытыми лицензиями (например, <a href="http://gnu.org/copyleft/gpl.html">GPL</a>
+или <a href="http://scripts.sil.org/OFL-FAQ_web">OFL</a>) позволяют пользователю вносить
+изменения.  Если адаптировать шрифт, который изначально находился под открытой
+лицензией, а затем распространять его, сохранить оригинальные уведомления об
+авторских правах и информацию о лицензировании автора, хотя можно добавить в
+конце уведомления об авторских правах примечание, касающееся вклада.</p>
+<p><img src="images/beh_dal.png" /></p>
+<p>В этой главе рассматривается добавление глифа в арабский шрифт.  Шрифт,
+который будет использован, — <a href="http://openfontlibrary.org/en/font/graph">Graph</a>,
+а глиф, который добавить, — <em>peh</em> (U+067E), который не встречается в самом
+арабском языке, но обозначает <em>p</em> в некоторых языках, для которых используется
+арабская письменность.  (Полный список глифов, доступных для арабского письма,
+в <a href="http://www.unicode.org/charts">Unicode charts</a>.)</p>
+<p><img src="images/peh.png" /></p>
+<h2 id="сделать-рабочую-копию-шрифта">Сделать рабочую копию шрифта</h2>
+<p>Загрузить шрифт с веб-страницы и разархивировать его.  Запустить FontForge и
+загрузить шрифт.  Сохранить как файл <em>sfd</em>, отредактировав предложенное имя
+на <strong>GraphNew.sfd</strong> перед сохранением.</p>
+<h2 id="переименовать-шрифт">Переименовать шрифт</h2>
+<h3 id="зачем-переименовывать-шрифт">Зачем переименовывать шрифт?</h3>
+<p>Если не переименовать шрифт, адаптированный шрифт не будет установлен отдельно
+от исходного — сначала придется удалить исходный шрифт.  Также имеет смысл
+переименовать шрифт, если задача распространять адаптации, в — Если
+первоначальный автор шрифта зарезервировал имя шрифта в рамках механизма
+зарезервированного имени шрифта (RFN), это исходное имя можно использовать
+только с версией шрифта исходного автора.</p>
+<h3 id="изменить-данные-имени">Изменить данные имени</h3>
+<p>Выбрать <strong>Element &gt; Font Info</strong> и на панели <em>PS Names</em> изменить <em>Fontname</em>,
+<em>Family Name</em> и <em>Name For Humans</em> на <strong>GraphNew</strong>.</p>
+<p><img src="images/font_rename.png" /></p>
+<p>При желании поместить сообщение ‘Additional glyphs added by’ после текста,
+уже содержащегося в записи для <em>Copyright</em>.</p>
+<p>На панели <em>TTF Names</em> имена <em>Family</em> и <em>Fullname</em> взяты из записей <em>PS Names</em>
+и уже должны отображать <em>GraphNew</em> (не удастся редактировать их напрямую).
+Изменить записи для <em>Preferred Family</em> и <em>Compatible Full</em> на <strong>GraphNew</strong>.
+Эти изменения имени теперь позволят при желании установить шрифт рядом с
+исходным.</p>
+<p>При желании поместить сообщение ‘Additional glyphs added by’ после текста,
+уже содержащегося в записи для <em>Designer</em>.</p>
+<p>Нажать <strong>OK</strong>, чтобы сохранить эти изменения.  Получить сообщение о создании
+нового уникального идентификатора (XUID) для шрифта — нажать <strong>Change</strong>.</p>
+<h2 id="добавить-глиф-для-изолированной-формы-peh">Добавить глиф для изолированной формы <em>peh</em>.</h2>
+<p>Перейть в арабский раздел таблицы шрифтов: выбрать <strong>View — Go to</strong>,
+щелкнуть раскрывающийся список и выбрать <strong>Arabic</strong>, затем нажать <strong>OK</strong>.</p>
+<p>Если щелкнуть ячейку в таблице шрифтов, ее номер и имя в Юникоде отобразятся
+синим цветом в верхней части панели.  Перейти к позиции 1662, которая будет
+отображаться синим цветом как <em>1662 (0x67e) U+067E “uni067E” ARABIC LETTER PEH</em>.
+Ячейка под эталонным глифом содержит серый крестик, указывающий на то, что
+шрифт не включает этот глиф.</p>
+<p><img src="images/peh_blank.png" /></p>
+<p>Cоздать <em>peh</em>, скопировав <em>beh</em> (U+0628) и заменить одну точку на три.</p>
+<p>Щелкнуть ячейку <em>beh</em> (позиция 1576), затем щелкнуть правой кнопкой мыши и
+выбрать <strong>Copy</strong>.  Затем щелкнуть правой кнопкой мыши ячейку <em>peh</em> и выбрать
+<strong>Paste</strong>.  Теперь, когда <em>beh</em> скопировано в ячейку <em>peh</em>, следующим шагом
+будет изменение точки.</p>
+<p><img src="images/peh_with_beh.png" /></p>
+<p>Найдите глиф с тремя точками — подойдет <em>sheen</em> (позиция 1588, U+0634).
+Дважды щелкнуть ячейку — откроется панель дизайна глифа.  Нажать <kbd>V</kbd>,
+чтобы убедиться, что на панели инструментов выбран инструмент-указатель (стрелка),
+затем нажать <kbd>Z</kbd> и увеличить панель, чтобы лучше рассмотреть глиф.</p>
+<p>Щелкнуть и перетащить так, чтобы узлы трех точек над блеском изменили цвет
+с розового на бежевый.  Если случайно включить или пропустить узел, отменить
+его выбор или выбрать его, нажав <kbd>Shift</kbd> и щелкнув мышью.  Нажать
+<kbd>Alt</kbd> + <kbd>C</kbd>, чтобы скопировать.</p>
+<p><img src="images/sheen_dots.png" /></p>
+<p>Вернуться к таблице шрифтов и дважды щелкнуть ячейку <em>peh</em> — это
+загрузит <em>peh</em> на другую вкладку панели дизайна глифов рядом с вкладкой
+<em>sheen</em>.</p>
+<p>Нажать и перетащить, чтобы выделить точку под <em>peh</em>, затем нажать
+<kbd>Delete</kbd>.  Нажать <kbd>Alt</kbd> + <kbd>V</kbd>, чтобы вставить
+три точки, которые, скорее всего, появятся над телом <em>peh</em>.  Оставить
+точечные узлы выделенными, чтобы было легче инвертировать и перемещать их.</p>
+<p><img src="images/peh_dots1.png" /></p>
+<p>Инвертировать точки: выбрать инструмент flip (два треугольника с красной
+пунктирной линией между ними) на панели инструментов.  (Альтернативно щелкнуть
+правой кнопкой мыши посередине точек и выбрать <strong>Flip the selection</strong> во
+всплывающем окне.)  Щелкнуть один из узлов-точек и перетащить мышь немного
+влево или вправо.</p>
+<p><img src="images/peh_dots2.png" /></p>
+<p>Переместить перевернутые точки: нажать <kbd>V</kbd>, чтобы снова выбрать
+инструмент-указатель, щелкнуть один из узлов-точек и перетащить их вниз
+под тело глифа.  Расположить их по центру, над отметкой <em>ArabicBelow</em>.</p>
+<p><img src="images/peh_dots3.png" /></p>
+<p>Закрыть панель дизайна глифов.  Теперь в таблице шрифтов должен появиться
+новый глиф для <em>peh</em>.  Сохранить адаптированный шрифт ( <strong>File &gt; Save</strong> ).</p>
+<p><img src="images/peh_new.png" /></p>
+<h2 id="добавить-глифы-для-связанных-форм-peh">Добавить глифы для связанных форм <em>peh</em>.</h2>
+<p>Однако это лишь изолированная (автономная) форма глифа.  Если попытатся
+использовать адаптированный шрифт, обнаружить, что начальная, средняя и
+конечная формы недоступны.  Их необходимо создавать отдельно.</p>
+<blockquote>
+  <p>Формы создаются как незакодированные глифы (глифы, кодировка которых
+равна -1 в соглашениях FontForge).  Нет заранее определенных слотов.” (Khaled Hosny)</p>
+</blockquote>
+<p>Выбрать <strong>Encoding &gt; Add Encoding Slots</strong> и ввести нужное количество глифов —
+в данном случае 3.  FontForge добавится такое же количество слотов в самом конце
+шрифта, и переместиться туда по таблице шрифтов.  Последние три ячейки
+(позиции 65537, 65538, 65539) имеют вопросительный знак в качестве ссылочного
+глифа, и именно в эти ячейки добавить незакодированные глифы, повторив описанный
+выше процесс.</p>
+<p><img src="images/peh_slots.png" /></p>
+<p class="note">Обратить внимание: если по ошибке начать печатать, когда таблица
+шрифтов все еще находится в фокусе, перейти в европейский раздел вверху.  Чтобы
+вернуться вниз, выбрать <strong>View &gt; Go to</strong>, щелкнуть раскрывающийся
+список и выбрать <strong>Not a Unicode Character</strong>, а затем нажать
+<strong>OK</strong>.</p>
+<h3 id="создать-окончательную-форму">Создать окончательную форму</h3>
+<p>Немного повернуть таблицу шрифтов вверх, пока не дойти до набора арабских глифов
+в позиции 65152 (U+FE80) и далее.  В U+FE90 (позиция 65168) виден глиф <em>behfinal</em> —
+щелкните его и нажать <kbd>Ctrl</kbd> + <kbd>C</kbd>, чтобы скопировать его.
+Прокрутить вниз до третьей последней ячейки диаграммы (позиция 65537), щелкнуть ее
+и нажать <kbd>Ctrl</kbd> + <kbd>V</kbd>, чтобы вставить глиф <em>behfinal</em>.</p>
+<p><img src="images/beh_forms.png" /></p>
+<p>Щелкнуть правой кнопкой мыши ячейку и выбрать <strong>Glyph Info</strong>.  Соглашение об именах
+заключается в использовании номера изолированного глифа + суффикса формы, поэтому
+изменить <em>Glyph Name</em> на <strong>uni067E.fina</strong> и нажать <strong>OK</strong>.  Знак вопроса в ссылочной
+ячейке изменится на <em>peh</em>.</p>
+<p><img src="images/peh_final.png" /></p>
+<p>Получить три точки: дважды щелкнуть <em>sheen</em> (U+FEB5), чтобы загрузить его на панель
+дизайна глифа, выбрать три точки и нажать <kbd>Ctrl</kbd> + <kbd>C</kbd>.</p>
+<p>Дважды щелкнуть новый <em>pehfinal</em>, чтобы загрузить его на панель дизайна
+глифа, щелкнуть и перетащить, чтобы выделить узлы точки, и нажать
+<kbd>Delete</kbd>.</p>
+<p><kbd>Ctrl</kbd> + <kbd>V</kbd>, чтобы вставить три точки из <em>sheen</em>,
+перевернуть их и переместить в положение под телом глифа.  Нажать
+<kbd>Ctrl</kbd> + <kbd>S</kbd>, чтобы сохранить измененную таблицу шрифтов.</p>
+<h3 id="создать-начальную-и-медиальную-формы">Создать начальную и медиальную формы.</h3>
+<p>Скопировать исходную форму U+FE91 (позиция 65169) в предпоследнюю ячейку
+(позиция 65538), удалить одну точку и вставить три точки.</p>
+<p>Щелкнуть ячейку правой кнопкой мыши, выбрать <strong>Glyph Info</strong>, изменить
+<em>Glyph Name</em> на <strong>uni067E.init</strong> и нажать <strong>OK</strong>.</p>
+<p>Скопировать медиальную форму U+FE92 (позиция 65170) в последнюю ячейку
+(позиция 65539), удалить одну и вставить три точки.</p>
+<p>Щелкнуть ячейку правой кнопкой мыши, выбрать <strong>Glyph Info</strong>, изменить
+<em>Glyph Name</em> на <strong>uni067E.medi</strong> и нажать <strong>OK</strong>.</p>
+<p><img src="images/peh_forms.png" /></p>
+<p>Выбрать <strong>File &gt; Save</strong>, чтобы сохранить измененную таблицу шрифтов.</p>
+<h2 id="добавить-поиск">Добавить поиск</h2>
+<p>Изолированная форма должна быть сопоставлена (связана) с ее начальной,
+средней и конечной формами.</p>
+<p>Выбрать <strong>Element &gt; Font Info &gt; Lookups</strong>.</p>
+<p>Нажать на <strong>+</strong> рядом с записью <em>‘init’ Initial Forms in Arabic lookup 2</em>.
+Откроется одноименное подменю.  Нажать на это подменю.</p>
+<p>Кнопка <em>Edit Data</em> справа станет доступной — нажать ее.</p>
+<p><img src="images/peh_lookups1.png" /></p>
+<p>На появившейся панели <em>Lookup Subtable</em> убедиться, что кнопка <em>Unicode</em>
+отмечена.  Прокручивать список символов вниз, пока не дойти до конца.</p>
+<p>В поле рядом с <em>Default Using Suffix</em> ввести соответствующий суффикс
+(в данном случае <strong>init</strong>), а затем нажать <strong>Default Using Suffix</strong>.</p>
+<p>В список символов будет добавлено новое сопоставление: от uni067E
+(изолированная форма <em>peh</em>) до uni067E.init (исходная форма).
+Нажать <strong>OK</strong>.</p>
+<p><img src="images/peh_lookups2.png" /></p>
+<p>Сделать то же самое для подменю под записями <em>‘medi’ Medial Forms in Arabic lookup 2</em>
+и <em>‘fina’ Terminal Forms in Arabic lookup 2</em>, выбрав <em>medi</em> и <em>fina</em> в качестве
+соответствующего суффикса.</p>
+<p>Нажать <strong>OK</strong> еще раз, чтобы закрыть панель и сохранить таблицу шрифтов
+(<kbd>Ctrl</kbd> + <kbd>S</kbd>).</p>
+<p>Обратить внимание, что <em>Default Using Suffix</em> работает только с глифами
+в блоке Unicode 06 (<em>Arabic</em>) — глифами в Unicode 07 (<em>Arabic Supplement</em>),
+например <em>ain</em> с двумя точками, возможно, придется добавить вручную, щелкнув
+строку с пометкой <em>New</em> и введя имена.</p>
+<h3 id="создать-адаптированный-шрифт">Создать адаптированный шрифт</h3>
+<p>Выбрать <strong>File &gt; Generate Fonts</strong>.</p>
+<p>В раскрывающемся списке, показывающем <em>PS Type 1 (Binary)</em>, выбрать
+<strong>TrueType</strong> и убедиться, что имя файла читается как <em>GraphNew.ttf</em>.</p>
+<p>Перейти туда, где задача сохранить шрифт, и нажать <strong>Generate</strong>.
+Нажать <strong>Yes</strong> и <strong>Generate</strong>, чтобы увидеть два информационных сообщения.</p>
+<p>Затем можно использовать обычную процедуру установки шрифта для установки
+адаптированного шрифта.  Новый глиф <em>peh</em> затем можно будет использовать
+вместе с существующими глифами в тех же бессмысленных примерах, что и
+в начале этой главы:</p>
+<p><img src="images/beh_dal_peh.png" /></p>
+<p class="note">Обратить внимание: если использовать шрифт в LibreOffice и
+вносить изменения в этот шрифт, необходимо перезапустить LibreOffice, чтобы
+стали заметны какие-либо изменения — в противном случае будет использоваться
+предыдущая версия шрифта, а не версия с новыми изменениями.</p>
+<p>Спасибо <a href="http://khaledhosny.org">Khaled Hosny</a> за советы по использованию
+FontForge для редактирования арабских глифов.</p>
+<h2 id="дальнейшее-чтение">Дальнейшее чтение</h2>
+<ul>
+  <li>В <a href="http://lists.nongnu.org/archive/html/freetype-devel/2015-08/msg00016.html">Тема об улучшенном автоматического хинтирования на арабском языке</a> есть совет, как
+рисовать перекрывающиеся части арабских глифов.</li>
+</ul>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Окончательный результат, создание файлов шрифтов</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Окончательный результат, создание файлов шрифтов</h1>
+          <p>Несмотря на то, что можно выполнять широкий спектр тестов внутри FontForge, необходимо будет создать
+устанавливаемые файлы шрифтов, чтобы проводить тестирование в реальных условиях в процессе разработки.
+Кроме того, конечная цель, конечно же, — создать шрифт, который можно сделать доступным в выходном
+формате для установки и использования другими людьми.  Будет использоваться инструмент <em>Generate Fonts </em>
+(находится в меню File) для создания пригодного для использования выходного шрифта независимо от того,
+создается ли для собственных целей тестирования или публикации для использования другими, но потребуется
+выполнить несколько дополнительных шагов, когда создание готового продукта.</p>
+<p>FontForge может экспортировать шрифт во множество различных форматов, но на практике важны только два:
+TrueType (который находится с расширением имени файла <em>.ttf</em>) и OpenType CFF (который находится
+с расширением <em>.otf</em>).  Технически формат OpenType может включать в себя ряд других вариантов,
+но тип CFF широко используется.</p>
+<h2 id="быстрая-и-грязная-генерация-для-тестирования">Быстрая и грязная генерация для тестирования</h2>
+<p>Чтобы создать файл шрифта для целей тестирования — например, для проверки интервалов в веб-браузере —
+нужно только убедиться, что шрифт прошел необходимые проверочные тесты.</p>
+<p>Для этого можно использовать инструмент <em>Validate Font</em>, расположенный в меню Element (смотреть
+<a href="Making_Sure_Your_Font Works_Validation.html">Проверка работоспособности вашего шрифта, проверка</a> для более
+подробного объяснения), или можно выбрать все глифы (hit <kbd>Ctrl</kbd> + <kbd>A</kbd> или выбор
+“Select” &gt; “Select All” из “Edit” меню) затем запустить несколько команд, чтобы массово применить
+некоторые базовые изменения.  Однако обязательно сохранить свою работу, прежде чем продолжить: некоторые
+изменения, необходимые для проверки шрифта для экспорта, изменят форму глифов тонкими способами.</p>
+<p>Для шрифтов OpenType сначала исправить направление всех путей.  Нажать
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> или выбрать “Correct Direction” в меню “Element”.  Далее
+проверить, не оставлены ли незакрытые пути.  Выбрать “Find problems” в меню “Element”, выбрать параметр
+<em>Open paths</em> на вкладке “Paths” и нажать OK, чтобы запустить тест.  Как только шрифт пройдет тест
+без ошибок, готовиться генерировать выходные данные OpenType.</p>
+<p>Для шрифтов TrueType требуется несколько дополнительных шагов.  Сначала следует исправить направление всех
+путей, как описано выше.  Затем настроить все точки так, чтобы они имели целочисленные координаты, либо
+нажать <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>_</kbd> (подчеркивание), либо выбрать <em>To Int</em>
+в меню “Element” &gt; “Round”.  Наконец, открыть инструмент “Find Problems”, выбрать тест <em>Open paths</em>,
+как описано выше, а также выбрать все тесты на вкладке “Refs”.</p>
+<p>После того как выполнить эти тесты без ошибок, преобразовать пути в квадратичные кривые.  Открыть окно
+“Font Info” из меню “Element”.  Нажать на вкладку “Layers” и установить флажок <em>All layers quadratic</em>.
+Нажать ОК в нижней части окна, и готовность генерировать выходные данные TrueType.</p>
+<h3 id="создание-файлов-шрифтов">Создание файлов шрифтов</h3>
+<p>Открыть окно <em>Generate Fonts</em>, выбрать его в меню “File”.  В верхней половине окна показаны
+знакомые параметры выбора файлов —, список файлов, найденных в текущем каталоге, поле ввода
+текста для ввода имени файла и кнопки для перехода к другим папкам и каталогам при необходимости.
+Это исключительно средство, которое поможет быстро найти подходящее место для сохранения выходного
+файла или выбрать существующий файл шрифта, если задача перезаписать предыдущее сохранение.  Все
+параметры, на которые обратить внимание, находятся в нижней половине окна.</p>
+<p><img src="images/generate.png" alt="" /></p>
+<p>On the left-hand side is a pull-down menu from which you select the format of the font you wish to generate. You should choose either  bbo# <em>TrueType</em> #obb  or  bbo# <em>OpenType (CFF)</em> #obb , as discussed earlier. On the right-hand side, make sure  bbo# <em>No Bitmap Fonts</em> #obb  is selected. On the line below, make sure  bbo# <em>No Rename</em> #obb  is selected for the bbo# “Force glyph names to:” #obb  option. You can check the bbo# “Validate Before Saving” #obb  option if you wish (to potentially catch additional errors), but this is optional. Leave the bbo# “Append a FONTLOG entry” #obb  and bbo# “Prepend timestamp” #obb  options unchecked.</p>
+<p>Click the bbo# “Generate” #obb  button, and FontForge will build your font file. You can load the font in other applications and run any tests, but when you are ready to return to editing, remember to re-open the saved version of your font that you created before generating your  bbo# <em>.ttf</em> #obb  or  bbo# <em>.otf</em> #obb  output.</p>
+<h2 id="generating-for-final-release">Generating for final release</h2>
+<p>Designing your font is an iterative process, but eventually the day when come when you must declare your font finished bbo# — #obb  or at least ready for public consumption. At that point, you will again generate a .ttf or .otf output file (perhaps even both), but before doing so you will need to work through a few additional steps to create the most standards-compliant and user-friendly version of your font file.</p>
+<p>First, follow the same preparation steps outlined in the section on quick and dirty generation for testing purposes. In particular, remember to change your font to  bbo# <em>All layers quadratic</em> #obb  if you are creating a TrueType file.</p>
+<h3 id="remove-overlaps">Remove overlaps</h3>
+<p>As you know, it is a good idea to keep your letter-forms as combinations of discrete components as you design: stems, bowls, serifs, and other pieces of each glyph. But although this technique is great for designing and refining forms, you want your final, published font to have simple outlines of each glyph instead. This reduces file size a bit, but more importantly it cuts down on rendering errors.</p>
+<p>В FontForge есть команда <em>Remove Overlap</em>, которая автоматически объединяет отдельные компоненты
+глифа в единый контур.  Выбор глифа (или даже выбрать все глифы с помощью <kbd>Ctrl</kbd> + <kbd>A</kbd>),
+затем нажать <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> или выбрать Remove Overlap в меню “Element” &gt;
+“Overlap”.  Однако стоит обратить внимание на одно предостережение: FontForge не может объединять фигуры,
+если одна из фигур прослеживается в неправильном направлении (то есть, если крайний путь направлен против
+часовой стрелки).  Однако путь, проложенный в неправильном направлении, сам по себе является ошибкой,
+которую в любом случае следует исправить.</p>
+<h3 id="упростить-контуры-и-добавить-точки-экстремума">Упростить контуры и добавить точки экстремума</h3>
+<p>Также следует упростить глифы, где это возможно, — не устраняя детали, а устраняя лишние точки.
+Это немного уменьшает размер файла для каждого глифа, что значительно увеличивается по всему
+набору символов шрифта.</p>
+<p>В меню “Element” выбрать “Simplify” &gt; <em>Simplify</em> (или нажать
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>).  Эта команда объединит лишние точки на кривой во всех
+выбранных глифах.  В некоторых случаях будет удалено всего несколько пунктов, в других их может быть много.
+Выполнить упрощение, не меняя заметно форму каких-либо глифов.  Если заметить какой-то глиф, который
+<em>is</em> слишком сильно изменил с помощью <em>Simplify</em>, не стесняйтесь отменить операцию.
+Можно поэкспериментировать с командой <em>Simplify More</em>, также расположенной в том же меню;
+предлагаются настраиваемые параметры, которые могут оказаться полезными.</p>
+<p>В любом случае после завершения этапа упрощения добавить недостающие точки экстремумов.  Выбрать
+<em>Add Extrema</em> в меню “Element” (или нажать <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd>).
+Как обсуждалось ранее, при редактировании рекомендуется размещать точки на кривой на экстремумах
+каждого глифа.  Тем не менее, все равно выполнить этот шаг при подготовке к окончательному
+формированию выходных данных, поскольку шаг <em>Simplify</em> иногда удаляет точку экстремума.</p>
+<h3 id="округлять-все-до-целых-координат">Округлять все до целых координат</h3>
+<p>Последний этап подготовки — округление всех точек (как точек на кривой, так и контрольных точек)
+до целочисленных координат.  Это обязательно для генерации вывода TrueType, но настоятельно
+рекомендуется также и для вывода OpenType.  Может привести к более четкому рендерингу и лучшему
+расположению сетки при отображении шрифтов без какой-либо дополнительной работы по дизайну.</p>
+<p>Чтобы округлить все точки до целочисленных координат, выбрать “Element” &gt; “Round” &gt; <em>To Int</em>.</p>
+<p>Как только эта операция будет завершена, вы можете заметить нечто загадочное.  Иногда просто из-за
+особенностей задействованных кривых процессы округления до целочисленных координат, упрощения глифов
+и добавления недостающих экстремумов могут работать друг против друга.  Примером того, когда это может
+произойти, является ситуация, когда изогнутый внешний край имеет контрольную точку, которая находится
+сразу за горизонталью или вертикалью; в этой ситуации округление до целочисленных координат может
+немного сдвинуть кривую и изменить положение экстремумов.</p>
+<p>Не существует одноразового решения этой загадки; Единственное гарантированное решение — повторить
+цикл шагов для затронутых глифов до тех пор, пока они не стабилизируются в точке, где три операции
+больше не мешают друг другу.  Это может занять несколько циклов, но это редкое явление.</p>
+<h3 id="validate">Validate</h3>
+<p>Ваш шрифт должен пройти необходимые проверочные тесты, прежде чем создать окончательный результат.
+Однако, как и в случае с шагом округления точек до целых координат, иногда другие подготовительные
+операции могут привести к ошибкам, поэтому всегда полезно запустить валидатор всего шрифта на этом этапе,
+прежде чем создавать окончательный результат.
+<a href="Making_Sure_Your_Font Works_Validation.html">Проверка работоспособности шрифта, проверка</a>
+даст более подробную информацию о том, что проверить.</p>
+<h3 id="несколько-слов-о-хинтировании">Несколько слов о хинтировании</h3>
+<p>Под хинтингом понимается использование математических инструкций для визуализации векторных кривых
+в шрифте таким образом, чтобы они хорошо совпадали с пиксельной сеткой растрового устройства вывода
+(независимо от того, состоит ли эта сетка из точек чернил или тонера на бумаге или люминесцентные
+точки на мониторе компьютера).</p>
+<p>FontForge позволяет указать шрифт (и даже предоставляет функцию <em>Autohint</em>), но на практике этот
+шаг не является строго необходимым.  Современные операционные системы часто имеют лучшие функции подгонки
+сетки, встроенные в механизмы рендеринга текста, чем можно создать самостоятельно, не затрачивая
+значительного времени и усилий.  Фактически, и Mac OS X, и Linux <em>ignore</em> содержат любое
+хинтирование, встроенное в сам файл шрифта.  Если решено, что шрифт нуждается в хинтах для удобства
+пользователей Windows, лучше всего создать шрифт без встроенных хинтов, а затем использовать
+специализированное приложение, такое как <a href="https://www.freetype.org/ttfautohint/">ttfautohint</a>,
+чтобы добавить хинтирование постфактум.</p>
+<p>Дополнительная информация в разделе <a href="http://vimeo.com/38364880">это видео о хинтинге CFF</a> от Adobe на RoboThon.</p>
+<p>Установить хинтинг PS с помощью Python можно: <code class="language-plaintext highlighter-rouge">private</code> — это список кортежей.  (Спасибо
+<a href="https://github.com/fontuni/boon/issues/26#issuecomment-157640491">Sungsit</a>!)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>font.private['BlueValues'] = (-20, 0, 600, 620, 780, 800, 810, 830)
+font.private['OtherBlues'] = (-225, -210)
+font.private['StdHW'] = 100,
+font.private['StdVW'] = 137,
+</code></pre></div></div>
+<h3 id="проверьте-метаданные">Проверьте метаданные</h3>
+<p>И последнее, но не менее важное: как только шрифт будет полностью технически подготовлен к экспорту,
+следует приостановить и обновить метаданные шрифта, убедившись, что важная информация метаданных
+включена и что она актуальна.</p>
+<p>Во-первых, если это первая версия шрифта, открыть диалоговое окно <em>Font Info</em> в окне “Element”
+и выбрать вкладку “PS Names”.  Сначала ввести название семейства и вес шрифта, затем скопировать эту
+информацию в поле “Name for Humans”.  Хотя использование номеров версий не является обязательным, как
+дизайнеру, будет чрезвычайно полезно различать разные версии работы.  Если нет увереннности, ввести “1.0”
+в качестве номера “Version”.  Затем перейти на вкладку “TTF Names” и ввести ту же информацию.</p>
+<p><img src="images/fontinfo.png" alt="" /></p>
+<p>Как и в случае с номерами версий, в долгосрочной перспективе будет полезно делать записи в журнале
+для каждой ревизии.  Перейти на вкладку “FONTLOG” и написать короткое предложение или два, объясняющие,
+какие изменения, если таковые имеются, вошли в версию, которую создать для выпуска.  Если это первоначальная
+запись в журнале, также следует описать шрифт и его назначение в одном или двух предложениях.</p>
+<p>Шрифты, как и все творческие произведения, должны иметь лицензию, чтобы пользователи знали, что они из
+себя представляют и что им не разрешено делать.  В FontForge на вкладке “TTF Nmes” есть кнопка с надписью
+“Add SIL Open Font License.”.  Открытая лицензия на шрифты (OFL) — лицензия на шрифты, разработанная для
+того, чтобы делиться шрифтом с общественностью с очень небольшими ограничениями на то, где он используется,
+при этом защищая автора как дизайнера от того, что другие приписывают себе его работу или творческие
+производные шрифта, которые будут приняты за оригинал.  Нажатие кнопки добавит строки “License” и
+“License URL” к метаданным имен TTF.  Если есть другая лицензия, которую предпочитается использовать вместо
+OFL, ввести в поле “License”.</p>
+<p><img src="images/metadata.png" alt="" /></p>
+<p>Если внести существенные изменения в другие функции шрифта, рекомендация дважды проверить другие
+настройки шрифта в окне Font Info и убедиться, что все по-прежнему актуально.  Например, информацию
+о межстрочном интервале можно найти на вкладке “OS/2” в разделе “Metrics.”.</p>
+<h3 id="создание-файлов-шрифтов-1">Создание файлов шрифтов</h3>
+<p>Процесс создания выходных файлов шрифтов такой же, как при сборке финальной версии, так и при
+создании быстрой копии для тестирования, но следует уделить более пристальное внимание
+некоторым параметрам.</p>
+<p>Открыть окно <em>Generate Fonts</em>, выбрать в меню “File”.  Опять же, верхняя половина окна
+позволяет выбор каталога и имени файла для выходного файла —, но осторожно, чтобы не перезаписать
+предыдущее сохранение.</p>
+<p>В раскрывающемся меню слева выбрать формат создаваемого шрифта — либо <em>TrueType</em>, либо
+<em>OpenType (CFF)</em>, как обсуждалось ранее.  Убедитесь, что справа выбрано <em>No Bitmap Fonts</em>.
+В строке ниже убедитесь, что для параметра “Force glyph names to:” выбрано <em>No Rename</em>.  Если
+задача, проверить опцию “Validate Before Saving” (чтобы потенциально обнаружить дополнительные ошибки),
+но это необязательно.  Оставьте параметры “Append a FONTLOG entry” и “Prepend timestamp” неотмеченными.</p>
+<p>Затем нажать кнопку “Options”.  В появившемся окне выбрать параметры <em>PS Glyph Names</em>,
+<em>OpenType</em> и <em>Dummy DSIG</em> и отменить выбор всего остального.</p>
+<p><img src="images/opentype-options-window.png" alt="" /></p>
+<p>Нажать кнопку “Generate”, и FontForge создаёт файл шрифта.  И последнее замечание: важно не перезаписывать
+сохраненную версию работы FontForge с изменениями, внесенными в этом разделе, исключительно для создания
+выходных данных <em>.ttf</em> или <em>.otf</em>.  Например, теряется множество отдельных компонентов
+глифа при выполнении операции <em>Remove overlaps</em>.  Но в следующий раз, когда возобновляется работа
+над шрифтом, обязательно задача продолжить с того места, где останов в исходной версии, заполненной
+отдельными компонентами-глифами.</p>
+<p>Следовательно, если решено сохранить измененную версию файла FontForge, обязательно переименовать ее
+запоминающимся образом, например <em>MyFont-TTF.sfd</em> или <em>MyFont-OTF.sfd</em>.  Но на практике
+совсем не обязательно сохранять эти ориентированные на вывод вариантов файла — в следующий раз,
+когда редактировать исходную работу в FontForge, все равно придется снова выполнять этапы подготовки
+вывода.</p>
+<p>Поздравления всё в порядке!  Создан первый шрифт.  Теперь остается только поделиться работой: загрузить
+ее в Интернет, опубликовать в блоге и рассказать друзьям.</p>
+<p>Без сомнения, вернуться и продолжить пересматривать и совершенствовать свой шрифт —, ведь, как показано,
+дизайн шрифтов — это очень итеративный процесс.  Но обязательно сделать паузу и воспользоваться этим моментом,
+чтобы сначала насладиться тем, что достигнуто.</p>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

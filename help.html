@@ -1,0 +1,113 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Руководства Оглавление</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            .container {
+                display: flex;
+
+                /* Misc */
+                border: 1px solid #cbd5e0;
+                height: 100%;
+width: 100%;
+            }
+            .container__left {
+                /* Изначально левая занимает 1/5 ширины */
+                width: 20%;
+
+                /* Разное */
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+            .resizer {
+                background-color: #cbd5e0;
+                cursor: ew-resize;
+                height: 100%;
+                width: 2px;
+            }
+            .container__right {
+                /* Взять оставшуюся ширину */
+                flex: 1;
+
+                /* Разное */
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body> 
+        <div class="container">
+          <div class="container__left">
+    <iframe src="index.html" name="iframe_a" title="Оглавление Руководств" allow="fullscreen" height="100%" width="100%" style="border:none;" ></iframe></div>
+            <div class="resizer" id="dragMe"></div>
+            <div class="container__right">
+    <iframe src="about:blank" name="iframe_b" title="Содержание" allow="fullscreen" height="100%" width="100%" style="border:none;" > </iframe>  </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Запросить элемент
+                const resizer = document.getElementById('dragMe');
+                const leftSide = resizer.previousElementSibling;
+                const rightSide = resizer.nextElementSibling;
+
+                // Текущее положение мыши
+                let x = 0;
+                let y = 0;
+                let leftWidth = 0;
+
+                // Обрабатывать событие mousedown, которое запускается, когда
+// пользователь перетаскивает средство изменения размера.
+                const mouseDownHandler = function (e) {
+                    // Получить текущую позицию мыши
+                    x = e.clientX;
+                    y = e.clientY;
+                    leftWidth = leftSide.getBoundingClientRect().width;
+
+                    // Прикрепите слушателей к `document`
+                    document.addEventListener('mousemove', mouseMoveHandler);
+                    document.addEventListener('mouseup', mouseUpHandler);
+                };
+
+                const mouseMoveHandler = function (e) {
+                    // Как далеко мышь была перемещена
+                    const dx = e.clientX - x;
+                    const dy = e.clientY - y;
+
+                    const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
+                    leftSide.style.width = `${newLeftWidth}%`;
+
+                    resizer.style.cursor = 'col-resize';
+                    document.body.style.cursor = 'col-resize';
+
+                    leftSide.style.userSelect = 'none';
+                    leftSide.style.pointerEvents = 'none';
+
+                    rightSide.style.userSelect = 'none';
+                    rightSide.style.pointerEvents = 'none';
+                };
+
+                const mouseUpHandler = function () {
+                    resizer.style.removeProperty('cursor');
+                    document.body.style.removeProperty('cursor');
+
+                    leftSide.style.removeProperty('user-select');
+                    leftSide.style.removeProperty('pointer-events');
+
+                    rightSide.style.removeProperty('user-select');
+                    rightSide.style.removeProperty('pointer-events');
+
+                    // Удалить обработчики `mousemove` и `mouseup`
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                };
+
+                // Прикрепить обработчик
+                resizer.addEventListener('mousedown', mouseDownHandler);
+            });
+        </script>
+    </body>
+</html>

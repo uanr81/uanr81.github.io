@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Font Info и Metadata</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Font Info и Metadata</h1>
+          <h2 id="element-font-info">Element, Font Info</h2>
+<p>Окно Font Info повсеместно встречается в редакторах шрифтов, и FontForge точно
+соответствует спецификации OpenType.  На первый взгляд это может показаться загадочным,
+но его использование может помочь лучше познакомиться с форматом OpenType, а, в свою
+очередь, чтение информации о формате OpenType делает диалоговое окно более доступным.</p>
+<p><img src="images/info_ps_names.png" /></p>
+<h2 id="нумерация-версий">Нумерация версий</h2>
+<p>Разработчики программного обеспечения любят использовать
+<a href="http://semver.org">Семантическое управление версиями</a> для своих программ, и это
+также хорошая идея для шрифтов читателя.  В каком-то смысле шрифты — это “API”
+для текста, позволяющий вызвать у читателей некоторые ассоциативные чувства.</p>
+<p>ОСНОВНАЯ версия будет после полного редизайна.  Сравнить
+<a href="http://www.google.com/fonts/specimen/Exo">Exo</a> и
+<a href="http://www.google.com/fonts/specimen/Exo+2">Exo 2</a>.  Если есть документ, использующий
+Exo, не требуется переход к Exo 2, потому что ощущение, которое вызывается, ‘voice’
+или ‘flavor,’ (незначительно) отличается.  Добавление поддержки одного или нескольких
+новых скриптов, которые очень похожи по высоте, или значительного количества языков
+также может представлять собой КРУПНУЮ переработку, как и все остальное, что
+существенно меняет вертикальные или горизонтальные показатели.  Однако, если создается
+дополнительный дизайн для двух шрифтов, возможно, лучше выпустить 2 или 3 семейства,
+в одном из которых каждый шрифт будет соответствующим образом масштабирован, а
+другой(ие) шрифт(ы) будет масштабироваться как вторичные шрифты для простого
+резервного набора многоязычных текстов.</p>
+<p>МИНОРНОЙ версией будет все, что слегка меняет метрики, например, вертикальные
+метрики, горизонтальные боковые опоры или улучшенный кернинг, или вносит
+незначительные исправления в некоторые глифы, поскольку такие обновления
+приведут к перекомпоновке документов, использующих шрифт (хотя во многих случаях
+незаметно).  Вот пример из <a href="http://www.fastcodesign.com/3033126/roboto-rebooted-why-google-plans-to-update-its-font-like-the-rest-of-its-products">“Roboto Rebooted: Почему Google обновляет свой шрифт, как и остальные свои продукты”</a>:</p>
+<p><img src="https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto,fl_lossy/fc/3033126-inline-i-thenewroboto2.jpg" alt="Сравнение Roboto v1 и Roboto v2" /></p>
+<p>Добавление всего нескольких или дюжины глифов к покрытию “complete” ранее
+запланированного набора символов или добавление поддержки еще нескольких языков,
+вероятно, НЕЗНАЧИТЕЛЬНО, особенно если это не меняет вертикальные показатели.</p>
+<p>Изменением на уровне PATCH будет любое улучшение шрифта без изменения показателей
+или изменение дизайна глифа видимым образом, не влияющее на окончательный макет
+текста.
+В версии 1.001 fsType может не иметь значения 0 или не запускаться через Fontcrunch,
+и изменение обеих этих вещей в версии 1.0.1 не будет видно или ничего не будет
+перекомпоновано.  К сожалению, третий номер версии PATCH недоступен в полях метаданных
+версии шрифта OpenType.
+Вместо этого увеличить номер версии MINOR для таких изменений в хинтировании или
+метаданных.</p>
+<p>Кроме того, версия должна иметь не более трех десятичных знаков, а в файле TTX
+это может быть представлено цифрой 5.  Например, <code class="language-plaintext highlighter-rouge">2.001</code> является типичным и может
+отображаться как <code class="language-plaintext highlighter-rouge">2.00099</code> в TTX XML.</p>
+<p>Если выпускать свободные шрифты, функции
+<a href="https://www.google.com/search?q=github+releases">GitHub Releases</a> будут очень полезны.</p>
+<h2 id="именование-семейств">Именование Семейств</h2>
+<p>Microsoft усердно работает над тем, чтобы программа, написанная для предыдущей
+версии Windows, продолжала работать в последних версиях, побуждая людей обновляться.
+Это означает, что базовая модель шрифтов TrueType, представленная в Windows 3, все
+еще существует, и Windows не поддерживает семейства шрифтов, содержащие более четырех
+основных стилей (обычный, курсив, жирный, полужирный курсив).</p>
+<p>Для дизайнеров шрифтов это означает, что имена семейств шрифтов должны быть настроены
+таким образом, чтобы все шрифты можно было использовать во всех операционных системах.
+Формат OpenType позволяет это сделать, дополняя значения семейства и имени стиля
+значениями “Preferred Family Name” и “Preferred Style Name”, которые будут иметь
+приоритет в программном обеспечении, поддерживающем OpenType.</p>
+<p><a href="https://docs.google.com/spreadsheets/d/1ckHigO7kRxbm9ZGVQwJ6QJG_HjV_l_IRWJ_xeWnTSBg/edit#gid=0">Таблица именования семейств в Документах Google</a> основана на информации,
+предоставленной польским экспертом по шрифтам Адамом Твардочом и обсуждаемой в
+<a href="http://forum.fontlab.com/index.php?topic=313.0">Fontlab форуме</a>.
+Это заменяет <a href="https://www.microsoft.com/typography/otspec/namesmp.htm">OpenType пример спецификации</a> .</p>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

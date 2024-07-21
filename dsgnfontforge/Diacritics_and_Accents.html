@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Диакритические знаки и акценты</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Диакритические знаки и акценты</h1>
+          <p>Диакритический знак — это знак, добавленный к букве или объединенный с ней, часто используемый
+для изменения звукового значения буквы, к которой добавлен этот знак.  Некоторые диакритические
+знаки (например, ‘acute’ и ‘grave’) часто называют акцентами.  Диакритические знаки могут
+располагаться над или под буквой, внутри нее или между двумя буквами.</p>
+<p><img width="5%" src="images/dia_a_grave.png" />
+<img width="5%" src="images/dia_a_circumflex.png" />
+<img width="5%" src="images/dia_a_tilde.png" />
+<img width="5%" src="images/dia_a_dieresis.png" />
+<img width="5%" src="images/dia_c_ogonek.png" />
+<img width="5%" src="images/dia_c_cedilla.png" />
+<img width="5%" src="images/dia_c_dot.png" />
+<img width="5%" src="images/dia_g_comma.png" />
+<img width="5%" src="images/dia_hungarumlaut.png" /></p>
+<h3 id="некоторые-примеры-диакритических-знаков">Некоторые примеры диакритических знаков</h3>
+<p class="imagebox"><img src="images/dia_a_grave.png" /></p>
+<p>Нижний регистр ‘a with grave’ (unicode u+00e0).
+Создан в шрифте путем объединения нижнего регистра глифа ‘a’ (unicode u+0061)
+и глифа ‘combining grave accent’ (unicode u+0300).</p>
+<p class="imagebox"><img src="images/dia_a_circumflex.png" /></p>
+<p>Нижний регистр ‘a with circumflex’ (unicode u+00e2).
+Создан в шрифте путем объединения строчного глифа ‘a’ (unicode u+0061) и
+‘combining circumflex accent’ глифа (unicode u+0302).</p>
+<p class="imagebox"><img src="images/dia_c_ogonek.png" /></p>
+<p>Нижний регистр ‘a with ogonek’ (unicode u+0105).
+Создан в шрифте путем объединения строчного глифа ‘a’ (unicode u+0061) и
+‘combining ogonek’ глифа (unicode u+0328).</p>
+<p class="imagebox"><img src="images/dia_c_cedilla.png" /></p>
+<p>Нижний регистр ‘c with cedilla’ (unicode u+00e7).
+Создан в шрифте путем объединения строчного глифа ‘c’ (unicode u+0063)
+и ‘combining cedilla’ глифа (unicode u+0327).</p>
+<p class="imagebox"><img src="images/dia_hungarumlaut.png" /></p>
+<p>Нижний регистр ‘o with double acute’ (unicode u+0151).
+Создан в шрифте путем объединения строчного глифа ‘o’ (unicode u+006f)
+и ‘combining double acute accent’ глифа (unicode u+030b).</p>
+<hr />
+<p>FontForge может автоматически создавать акцентированные символы двумя основными способами.</p>
+<ol>
+  <li>FontForge содержит элементарную информацию о том, где размещать диакритические знаки,
+поэтому может автоматически создавать большинство акцентированных символов.</li>
+  <li>Для большего контроля над размещением диакритических знаков FontForge может размещать
+диакритические знаки в зависимости от положения созданных пользователем опорных точек.</li>
+</ol>
+<p class="note">Здесь следует отметить, что если не использовать привязки и таблицы поиска для
+размещения диакритических знаков, то, если глиф определенного диакритического знака отсутствует
+в шрифте, FontForge вместо этого будет использовать аналогичный символ пробела.  Например, если
+знак объединения 'acutecomb' (u+0301) отсутствует, FontForge будет использовать стандартный
+символ 'acute' (u+00b4) при автоматическом построении любых глифов с острым ударением.  Если
+'acutecomb' присутствует, FontForge всегда будет использовать его, если только специально не
+заставить FontForge использовать пробелы для создания акцентированных глифов.</p>
+<h2 id="базовое-автоматическое-размещение-диакритических-знаков-в-fontforge">Базовое автоматическое размещение диакритических знаков в FontForge.</h2>
+<p>В меню ‘Element’ FontForge есть функция ‘Build’, которую можно использовать для создания
+символов с диакритическими знаками, некоторых составных символов и некоторых повторяющихся
+символов.  Для автоматического создания акцентированных символов FontForge использует функцию
+‘Element &gt; Build &gt; Build Accented Glyph’.  Функцию также можно выполнить нажатием клавиши
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>.  Итак, используя пример создания символа
+‘a acute’ (u+00e1), нужно было бы уже создать строчную букву ‘a’ (u+0061) и глиф
+‘acutecomb’ (u+0301).  Затем, выбрав слот для символов ‘a acute’ и используя функцию
+‘Element &gt; Build &gt; Build Accented Glyph’, FontForge поместит ссылку на строчный глиф ‘a’
+и ссылку на глиф ‘acutecomb’ в слот для символов ‘a acute’ (смотреть ниже).</p>
+<p><img src="images/dia_auto_a_acute.png" /></p>
+<p>Автоматическое размещение диакритических знаков можно настроить с помощью настроек,
+которые можно найти в разделе ‘accents’ меню настроек FontForge ‘File &gt; Preferences &gt; Accents’
+(смотреть ниже).</p>
+<p><img src="images/preferences_accents.png" /></p>
+<p>‘PreferSpacingCharacters’ заставит FontForge создавать акцентированные глифы с пробелами,
+даже если присутствуют соответствующие комбинирующие символы.  Параметр игнорируется при
+использовании привязок для размещения диакритических знаков.</p>
+<p>‘AccentOffsetPercent’ управляет количеством вертикального пространства между базовым
+глифом и глифом метки.  Введенное здесь значение представляет собой процент от площади em шрифта.
+Таким образом, значение ‘6’ сместит глиф отметки относительно базового глифа на 6 процентов
+от квадрата em шрифта.</p>
+<p>Также можно установить настройки горизонтального размещения значка знака.  При выборе ‘On’ для
+предпочтения ‘AccentCenterLowest’ глиф акцента будет центрироваться по самой нижней точке
+базового глифа.</p>
+<p>При выборе от ‘AccentCenterHighest’ до ‘On’ акцент будет центрироваться по самой высокой
+точке базового глифа.</p>
+<p>Если выбрать оба вышеуказанных параметра для ‘Off’, акцент будет центрироваться по ширине
+базового глифа.  Если выбрать обе вышеуказанные настройки для ‘On’, акцент будет
+центрироваться по ширине слота для символов.</p>
+<h2 id="использование-опорных-точек-для-размещения-диакритических-знаков">Использование опорных точек для размещения диакритических знаков</h2>
+<p>Самый точный и эффективный способ создания акцентированных символов в FontForge —
+использовать ‘anchor points’.</p>
+<p>Якорные точки позволяют точно контролировать точное расположение диакритического знака относительно
+каждого базового глифа в акцентированных символах.  Таким образом, в случае символа ‘a ogonek’ базовый
+глиф ‘a’ будет располагаться нормально, а глиф метки ‘ogonek’ будет располагаться так, чтобы якорная
+точка глифа метки совпадала с опорной точкой в базовом глифе.</p>
+<p>В приведенном ниже примере создания символа ‘a ogonek’ был создан класс привязки с именем ‘bottom’.
+В нижнем регистре глифа ‘a’ привязка ‘bottom’ размещается внизу основы ‘a’.
+Это форма привязки ‘base glyph’.</p>
+<p><img src="images/dia_a_anchor.png" /></p>
+<p>В глифе ‘ogonek’ якорь ‘bottom’ размещается вверху глифа огонек в форме якоря ‘mark’.</p>
+<p><img src="images/dia_ogonek_anchor.png" /></p>
+<p>Затем, когда символ ‘a ogonek’ будет построен (с использованием функции ‘Build Accented Character’),
+якорная точка привязки метки ‘bottom’ будет помещена в то же место, что и базовая якорная точка
+‘bottom’,  с гарантией, что указанный глиф ogonek будет правильно размещен у подножия основы символа
+ссылки на глиф ‘a’.  Такое точное и автоматическое размещение было бы невозможно без использования
+якорных точек для позиционирования основы и обозначения глифов.</p>
+<p><img src="images/dia_a_ogonek_anchors.png" /></p>
+<h3 id="создание-якорных-точек-для-размещения-диакритических-знаков-метка-к-базовому-позиционированию">Создание якорных точек для размещения диакритических знаков (метка к базовому позиционированию)</h3>
+<p>FontForge используются функции поиска, известные как ‘mark-to-base’, для создания и
+позиционирования якорных точек.  Эти запросы привязки к базе, можно создавать и
+редактировать в разделе Lookups GPOS информации о шрифте (‘Element &gt; Font Info &gt; Lookups &gt; GPOS’).</p>
+<p>В окне GPOS Lookups нажмите ‘Add Lookup’ и выбрать тип ‘Mark to Base Position’,
+затем выбрать ‘Mark Positioning’ в столбце ‘New’ на панели функций.  Нажать ‘OK’,
+чтобы закрыть окно.</p>
+<p><img src="images/dia_new_mark_to_base_1.png" /></p>
+<p>Выбрав новый поиск, нажать ‘Add Subtable’.  В появившемся окне создать классы привязки.</p>
+<p><img src="images/dia_anchor_new_subtable.png" /></p>
+<p>В этом примере были созданы два класса привязки: ‘top’ и ‘bottom’.  Класс привязки ‘top’
+будет использоваться для позиционирования диакритических знаков, размещаемых над глифами,
+а привязка ‘bottom’ будет использоваться для позиционирования знаков под глифами.</p>
+<p><img src="images/dia_marks_classes_add.png" /></p>
+<p>Чтобы разместить якорь с глифом, просто щелкните правой кнопкой мыши в окне редактирования
+глифа и выбрать функцию ‘Add Anchor’ в контекстном меню.  Появившееся диалоговое окно
+позволяет указать, является ли привязка базовой или меточной.  Положение якоря также можно
+точно настроить в этом диалоговом окне.  Альтернативно якорь можно переместить, перетащив
+его в нужное положение с помощью мыши или используя клавиши со стрелками.  Точку привязки
+также можно редактировать, щелкнув ее правой кнопкой мыши и выбрав ‘get info’ в контекстном
+меню мыши.</p>
+<h3 id="управление-классами-привязки">Управление классами привязки</h3>
+<p>FontForge также содержит полезный графический интерфейс для управления положением целых
+классов якорных точек, позволяя пользователю точно настроить положение, например, всех
+острых акцентов в шрифте одновременно или всех привязок в классе, содержащихся в символах,
+ссылающихся на строчную букву ‘e’.  В приведенных ниже примерах можно увидеть, как использовать
+этот графический интерфейс для точной настройки положения всех острых акцентов в шрифте и
+класса привязок для всех символов, ссылающихся на строчный глиф ‘e’.</p>
+<p>После того как созданы классы привязки в рамках поиска по позиции метки и добавили привязки
+к некоторым глифам, управлять этими классами из ‘Element &gt; Font Info &gt; Lookups &gt; GPOS’, а
+затем редактировать подтаблицу, содержащую классы привязки.  Затем видно это окно;</p>
+<p><img src="images/dia_anchor_control_1.png" /></p>
+<p>Отсюда выбор класса, который задача редактировать, и нажать кнопку ‘Anchor Control’.  Затем
+будет представлен графический интерфейс этого класса.  В примерах ниже редактирование элемента
+управления класса ‘top’.  В первом примере в разделе ‘Bases’ раскрывающегося меню была выбрана
+строчная буква ‘e’.  Если выбран базовый глиф, все символы, ссылающиеся на этот глиф и
+содержащие базовый якорь ‘top’, будут отображаться на панели предварительного просмотра.
+Затем можно настроить положение базовой привязки ‘top’, чтобы увидеть, как она влияет на
+положение всех глифов, содержащих привязку метки ‘top’.</p>
+<p><img src="images/dia_anchor_control_e.png" /></p>
+<p>Во втором примере ниже глиф ‘acute’ был выбран в разделе ‘Marks’ раскрывающегося меню.
+Если выбран глиф метки, для предварительного просмотра будут отображаться все глифы,
+которые ссылаются на выбранный глиф и содержат привязку метки ‘top’.</p>
+<p><img src="images/dia_anchor_control_mark.png" /></p>
+<h2 id="другие-источники">Другие источники</h2>
+<ul>
+  <li><a href="http://urtd.net/projects/cod/about">Контекст диакритических знаков</a></li>
+  <li><a href="http://ilovetypography.com/2009/01/24/on-diacritics/">О диакритических знаках</a></li>
+  <li><a href="http://diacritics.typo.cz/">Диакритический проект @ Typo.cz</a></li>
+  <li><a href="http://scripts.sil.org/ProbsOfDiacDesign">Проблемы оформления диакритических знаков для начертаний текста латиницей</a></li>
+  <li><a href="http://www.microsoft.com/typography/developers/fdsspec/diacritics.htm">Стандарты дизайна диакритических знаков (для языков на основе латиницы)</a></li>
+  <li><a href="https://twitter.com/fostertype/status/610292546971893760">Дэйв Фостер о Æ’s</a></li>
+</ul>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>

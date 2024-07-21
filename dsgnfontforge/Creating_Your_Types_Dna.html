@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Julius+Sans+One|Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+    <style>
+/* Use Heuristica's italics to stand in for the missing Source Serif Pro italics. */
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Heuristica Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/400i.woff) format('woff');
+}
+@font-face{
+  font-family: 'Source Serif Pro';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Heuristica Bold Italic'), url(//brick.a.ssl.fastly.net/fonts/heuristica/700i.woff) format('woff');
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Дизайн с помощью FontForge: Создание Собственного Типажа DNA</title>
+  </head>
+  <body>
+<header>
+  <div class="inner">
+    <h1><a href="/">Дизайн с помощью FontForge</a></h1>
+    <h2>Книга о том, как создавать новые шрифты с помощью FontForge.</h2>
+    <a href="https://github.com/fontforge/designwithfontforge.com" class="button" target="_blank"><small>Посмотреть проект на </small>GitHub</a>
+  </div>
+</header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Создание Собственного Типажа DNA</h1>
+          <p>После того, как завершен хороший, надежный дизайн и установлен интервал между ‘o’ и ‘n’,
+следующее, что вам нужно сделать, — это начать заполнять шрифт буквами, структурные
+характеристики которых обеспечивают полезную основу для создания многих других букв шрифта.</p>
+<p>Может возникнуть соблазн поторопиться и как можно быстрее заполнить шрифт всеми буквами
+— сопротивляться этому желанию!</p>
+<p>Хотя ‘o’ и ‘n’ служат отличной отправной точкой для создания основы дизайна, необходимо
+определить остальную часть.  Быстрое расширение до того, как это будет сделано, будет
+означать, что всем проектом станет сложнее управлять — и это займет больше времени,
+чем необходимо.</p>
+<p>Что еще нужно для основы дизайна? —  Во-первых, давайте посмотреть, что имеется с
+‘n’ и ‘o’.</p>
+<p>Хотя ‘o’ особенно полезено для определения базового интервала, не поможет разработать
+другие символы —, не обязательно даже ‘b’ или ‘d’.</p>
+<p>С другой стороны, буква ‘n’ очень полезна, поскольку помогает создавать ‘m’, ‘h’ и ‘u’.
+Другой фактор, который нужно учитывать при выборе букв для фундамента, — это то, как
+часто они используются.  Буква, которая часто используется, поможет составить контрольные
+слова.  Некоторые буквы могут быть выбраны почти исключительно по этой конкретной причине.</p>
+<p>Буквы, которые убираются, не обязательно должны быть предложенными здесь.  Должны просто
+иметь обсуждаемые характеристики.  Так, например, можно для начала использовать “a d h e s i o n”.
+Этот набор букв используется на магистерском курсе по шрифтовому дизайну в Университете
+Нью-Йорка.  Reading, UK.</p>
+<p>Альтернативой является “v i d e o s p a n”, который используется foundry <em>Type Together</em> для
+запуска проектов и в собственных мастерских шрифтового дизайна.  В любом наборе достаточно DNA,
+чтобы иметь смысл, и оба они небольшие, поэтому в них легко вносить изменения ‘global’.</p>
+<p>Хотя, возможно, проще всего просто использовать один из приведенных выше наборов букв, также можно
+создать собственный.  Спросить себя, какой набор букв следует добавить к ‘n’ и ‘o’.  Рассмотреть
+следующие варианты:</p>
+<ul>
+  <li>‘a’ — буква ‘a’ также является очень распространенным начальным выбором.  ‘a’ также может
+быть полезно при
+‘ожидании, как будут выглядеть терминалы ‘s’.</li>
+  <li>‘d’ — Форма ‘d’ может рассказать довольно много о дизайне ‘b’, ‘p’ и ‘q’.</li>
+  <li>‘e’ — в английском и многих других языках буква ‘e’ особенно распространена — что
+‘делает его особенно ценной.  Форму ‘e’ также можно использовать для начала проектирования ‘c’.</li>
+  <li>‘h’ — хотя ‘h’ можно довольно быстро построить из ‘n’, также вносится разнообразие в текстуру,
+которую задача протестировать, предлагая восходящий элемент.</li>
+  <li>‘i’ — Как и ‘e’, буква ‘i’ довольно распространена и позволяет немного узнать об облике ‘j’.
+Форма ‘i’ также частично выводится из формы ‘n’.</li>
+  <li>‘s’ — букву ‘s’ хорошо рисовать на ранних этапах, поскольку она добавляет визуальное
+разнообразие текстуре букв, которые будут тестировать.  Букву ‘s’ также необычайно сложно сделать
+правильно, поэтому, начав с нее как можно раньше, с большей вероятностью можно потратить достаточно
+времени, чтобы сделать это правильно к концу проекта.  Терминалы ‘s’ иногда могут быть полезны для
+прогнозирования того, какими могут быть терминалы ‘a’, ‘c’, ‘f’, ‘j’ и ‘y’.</li>
+  <li>‘v’ — буква ‘v’ полезна для прогнозирования того, какими могут быть ‘y’ и ‘w’.</li>
+</ul>
+<p>Когда есть эти буквы, полезно потратить время на их уточнение, проверяя слова, составленные из них.
+Как и раньше с ‘n’ и ‘o’, большое внимание следует уделять интервалу между буквами и отношению
+счетчиков к этим пробелам.</p>
+<p>Подробнее об определении поднятии и опускании высоты читать на странице
+<a href="http://typedrawers.com/discussion/1620/ascender-descenders-in-latin-type-design">this TypeDrawers thread</a>.</p>
+<h2 id="построение-тестового-текста">Построение тестового текста</h2>
+<p>В Интернете доступно множество ресурсов для быстрого создания текста для фиктивного теста:</p>
+<ul>
+  <li><a href="http://libretext.org">LibreText</a> это бесплатное программное решение.</li>
+  <li><a href="http://www.adhesiontext.com/">Adhesion Text</a>, созданный Мигелем Соузой, был первым ресурсом такого рода.</li>
+  <li><a href="http://justanotherfoundry.com/generator">JAF Generator</a>, от Just Another Type Foundry.</li>
+  <li><a href="http://www.urtd.net/data/typable/">Typable</a>, автор Ондрей Джоб.</li>
+</ul>
+<h2 id="использование-реального-текста">Использование реального текста</h2>
+<p>Эти <em>dummy texts</em> в каком-то смысле являются текстами “blind”; на самом деле не удастся их прочитать.</p>
+<p>Но как только будет дюжина или около того букв, можно создать текст <strong>real</strong>, чтобы испытать
+<em>immersive reading</em>.  Это важно для глубокого понимания того, как работает проект, поэтому
+лучше быстро перейти к этому этапу.</p>
+<p>Но следить за эффектом <strong>stale text</strong>.
+Если повторно использовать один и тот же реальный текст для тестирования шрифта, может стать
+настолько знакомым, что потеряются некоторые способности восприятия того, как работает шрифт.</p>
+<p>Если есть полный алфавит, чтобы обеспечить свежесть текста, установить шрифт операционной системы,
+почтового приложения или шрифт по умолчанию веб-браузера в качестве своего шрифта.</p>
+<p>Обсуждалось в теме TypeDrawers
+<a href="http://typedrawers.com/discussion/918/on-the-use-of-blind-texts">Об использовании слепых текстов</a>.</p>
+          <nav id="post-nav" class="clearfix">
+          </nav>
+        </section>
+        <aside id="sidebar">
+<!--          <a href="" class="button">
+            <small>Скачать книгу как</small>
+            PDF
+          </a>-->
+<ol class="rectangle-list">
+                <li>
+                  <a  href="Introduction.html">
+                    Введение
+                  </a>
+                </li>
+                <li>
+                  <a  href="What_Is_a_Font.html">
+                    Что такое шрифт?
+                  </a>
+                </li>
+                <li>
+                  <a  href="Trusting_Your_Eyes.html">
+                    Доверять глазам
+                  </a>
+                </li>
+                <li>
+                  <a  href="Planning_Your_Project.html">
+                    Планирование проекта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_EM_Square.html">
+                    EM Площадь
+                  </a>
+                </li>
+                <li>
+                  <a  href="Installing_Fontforge.html">
+                    Установка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Configuring_FontForge.html">
+                    Настройка FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="General_UI_Introduction.html">
+                    Общее введение в пользовательский интерфейс
+                  </a>
+                </li>
+                <li>
+                  <a  href="Using_the_Fontforge_Drawing_Tools.html">
+                    Использование инструментов рисования FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Drawing_With_Spiro.html">
+                    Рисование с Spiro
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_o_and_n.html">
+                    Создание ‘o’ и ‘n’
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Info_&_Metadata.html">
+                    Информация о шрифте и метаданные
+                  </a>
+                </li>
+                <li>
+                  <a  href="Word_Space.html">
+                    Расстояние между словами
+                  </a>
+                </li>
+                <li>
+                  <a  href="Creating_Your_Types_Dna.html">
+                    Создание типажа DNA
+                  </a>
+                </li>
+                <li>
+                  <a  href="Capital_Letters.html">
+                    Заглавные буквы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Line_Spacing.html">
+                    Межстрочный интервал
+                  </a>
+                </li>
+                <li>
+                  <a  href="Punctuation_and_Symbols.html">
+                    Пунктуация и символы
+                  </a>
+                </li>
+                <li>
+                  <a  href="Completing_the_Lower_Case.html">
+                    Заполнение нижнего регистра
+                  </a>
+                </li>
+                <li>
+                  <a  href="Diacritics_and_Accents.html">
+                    Диакритические знаки и акценты
+                  </a>
+                </li>
+                <li>
+                  <a  href="Numerals.html">
+                    Цифры
+                  </a>
+                </li>
+                <li>
+                  <a  href="Bold_and_Other_Weights.html">
+                    Bold
+                  </a>
+                </li>
+                <li>
+                  <a  href="Italic.html">
+                    Italic
+                  </a>
+                </li>
+                <li>
+                  <a  href="Spacing_Metrics_and_Kerning.html">
+                    Интервал, метрика и кернинг
+                  </a>
+                </li>
+                <li>
+                  <a  href="Making_Sure_Your_Font_Works_Validation.html">
+                    Проверка работоспособности шрифта
+                  </a>
+                </li>
+                <li>
+                  <a  href="The_Final_Output_Generating_Font_Files.html">
+                    Окончательный результат: создание файлов шрифтов
+                  </a>
+                </li>
+                <li>
+                  <a  href="When_Things_Go_Wrong_With_Fontforge_Itself.html">
+                    Когда что-то идет не так с самим FontForge
+                  </a>
+                </li>
+                <li>
+                  <a  href="Designing_Devanagari_Typefaces.html">
+                    Разработка шрифтов Devanagari
+                  </a>
+                </li>
+                <li>
+                  <a  href="Importing_Glyphs_from_Other_Programs.html">
+                    Импорт глифов из других программ
+                  </a>
+                </li>
+                <li>
+                  <a  href="Adding_Glyphs_to_an_Arabic_Font.html">
+                    Добавление глифов в арабский шрифт
+                  </a>
+                </li>
+                <li>
+                  <a  href="Further_Reading.html">
+                    Дальнейшее чтение
+                  </a>
+                </li>
+                <li>
+                  <a  href="Font_Editor_History.html">
+                    Инструменты Истории Font Editor Tool History
+                  </a>
+                </li>
+                <li>
+                  <a  href="Glossary.html">
+                    Glossary
+                  </a>
+                </li>
+          </ol>
+          <p>Эта книга свободная, <a href="//github.com/fontforge/designwithfontforge.com/" target="_blank">размещена на GitHub</a>.  Патчи, предложения и исправления приветствуются.</p>
+          <p><a class"" href="https://github.com/fontforge/designwithfontforge.com/commits/gh-pages">Review recent changes</a></p>
+          <p><a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">Редактировать эту страницу</a> (<a href="https://github.com/fontforge/designwithfontforge.com">учиться</a>)</p></p>
+        </aside>
+      </div>
+    </div>
+<!-- FOOTER -->
+<footer>
+<div class="inner">
+  <p>Последнее обновление 18 July 2024.  Приглашение на <a href="https://github.com/fontforge/designwithfontforge.com">способствование</a> и улучшение <a class="editthispage" href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/ru-RU/Adding_Glyphs_to_an_Arabic_Font.md" target="_blank">эта страница</a>.</p>
+  <p>Авторские права &copy; 2012 - 2017, Дизайн с помощью FontForge <a href="https://github.com/fontforge/designwithfontforge.com/blob/gh-pages/AUTHORS.txt">Авторы</a>.</p>
+  <p>‘<a href="//designwithfontforge.com"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Дизайн с помощью FontForge</span></a>’ <a xmlns:cc="http://creativecommons.org/ns#" href="http://designwithfontforge.com" property="cc:attributionName" rel="cc:attributionURL">Сообщество FontForge</a> имеет лицензию под <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.
+</div>
+</footer>
+</body>
+</html>
